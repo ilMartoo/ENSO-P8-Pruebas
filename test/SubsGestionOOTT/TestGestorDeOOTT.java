@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import ModeladoDeDatos.Incidencia;
 import ModeladoDeDatos.OT;
@@ -58,6 +59,7 @@ class TestGestorDeOOTT {
 	}
 
 	@ParameterizedTest
+	@CsvFileSource(resources = "/crearOT.csv", numLinesToSkip = 1)
 	@DisplayName("Test para probar la creacion de ordenes de trabajo")
 	void testCrearOT(@ConvertWith(NullableConverter.class) String descripcion,
 			@ConvertWith(NullableConverter.class) String material,
@@ -68,9 +70,14 @@ class TestGestorDeOOTT {
 			@ConvertWith(NullableConverter.class) Integer duracion, @ConvertWith(NullableConverter.class) String estado,
 			boolean procesoNulo, boolean nulo) {
 
-		materiales.add(material);
-		presupuestos.add(presupuesto);
-		personal.add(trabajador);
+		// TODO lista nula
+		
+		if (!material.equals("vacio"))
+			materiales.add(material);
+		if (presupuesto > -69)
+			presupuestos.add(presupuesto);
+		if (!trabajador.equals("vacio"))
+			personal.add(trabajador);
 
 		OT orden = got.crearOT(descripcion, materiales, presupuestos, coste, responsable, personal, fechaInicio,
 				duracion, estado, procesoNulo ? null : proceso);
