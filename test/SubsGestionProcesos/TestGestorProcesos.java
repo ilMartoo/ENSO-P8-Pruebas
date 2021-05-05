@@ -34,13 +34,6 @@ public class TestGestorProcesos {
 	@BeforeEach
 	void setUp() throws Exception {
 		this.gp = new GestorDeProcesos();
-
-		/*
-		 * proceso.setNombre(""); proceso.setDescripcion(""); proceso.setCoste(0.0f);
-		 * proceso.setEstimado(0); proceso.setEstado(""); proceso.setResponsable("");
-		 * proceso.setServicio(""); proceso.setIncidencias(new ArrayList<>());
-		 * proceso.setOts(new ArrayList<>());
-		 */
 	}
 
 	@AfterEach
