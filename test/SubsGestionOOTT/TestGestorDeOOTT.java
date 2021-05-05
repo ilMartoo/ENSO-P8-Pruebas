@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.mockito.Mockito;
@@ -22,12 +23,25 @@ import SubsGestionProcesos.GestorDeProcesos;
 
 class TestGestorDeOOTT {
 
-	private GestorDeOOTT gestorOT;
-	private static GestorDeProcesos gestorP;
-	private static GestorDeIncidencias gestorI;
+	GestorDeOOTT gestorOT;
+	static GestorDeProcesos gestorP;
+	static GestorDeIncidencias gestorI;
+
+	String descripcion;
+	ArrayList<String> materiales;
+	ArrayList<Double> presupuestos;
+	Float coste;
+	String responsable;
+	ArrayList<String> personal;
+	String fechaInicio;
+	Integer duracion;
+	String estado;
+	Proceso proceso;
+
+	OT otResult;
 
 	@BeforeAll
-	static void setUpAll() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 
 		gestorP = new GestorDeProcesos();
 		gestorI = new GestorDeIncidencias();
@@ -44,48 +58,40 @@ class TestGestorDeOOTT {
 						new ArrayList<>()));
 	}
 
+	@Test
+	void testPrueba() {
+		fail("Hola");
+	}
+
 	@AfterAll
-	static void tearDownAll() throws Exception {
+	static void tearDownAfterClass() throws Exception {
+	}
+	
+	@AfterEach
+	void tearDown() throws Exception {
 	}
 
 	@Nested
 	@DisplayName("Prueba de caja negra 3 - Creacion de ordenes de trabajo")
 	class PruebaCajaNegra_3 {
 
-		private String descripcion;
-		private ArrayList<String> materiales;
-		private ArrayList<Double> presupuestos;
-		private Float coste;
-		private String responsable;
-		private ArrayList<String> personal;
-		private String fechaInicio;
-		private Integer duracion;
-		private String estado;
-		private Proceso proceso;
-
-		private OT otResult;
-
 		@BeforeEach
-		void setUpEach() throws Exception {
+		void setUp() throws Exception {
 			gestorOT = new GestorDeOOTT();
 
 			materiales = new ArrayList<>();
 			presupuestos = new ArrayList<>();
 			personal = new ArrayList<>();
-			
+
 			proceso = gestorP.crearProceso(Mockito.anyString(), Mockito.anyString(), Mockito.anyFloat(),
 					Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyList());
 			proceso.getIncidencias().add(gestorI.crearIncidencia(Mockito.anyString(), Mockito.anyString(),
 					Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()));
 		}
 
-		@AfterEach
-		void tearDownEach() throws Exception {
-		}
-
 		@Test
 		@DisplayName("Caso de prueba 1,2")
-		void testPB3_CP1_CP2() {
+		void testPN3_CP1_CP2() {
 			String descripcion1 = "Se realiza este trabajo";
 			String descripcion2 = null;
 			materiales.add("Martillo");
@@ -107,17 +113,17 @@ class TestGestorDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion1, materiales, presupuestos, coste,
 									responsable, personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertEquals(ot1, otResult, "La orden de trabajo creada no es válida"),
 					() -> assertTimeout(Duration.ofSeconds(1),
 							() -> otResult = gestorOT.crearOT(descripcion2, materiales, presupuestos, coste,
 									responsable, personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
+					() -> assertEquals(ot1, otResult, "La orden de trabajo creada no es válida"),
 					() -> assertEquals(ot2, otResult, "La orden de trabajo creada no es válida"));
 		}
 
 		@Test
 		@DisplayName("Caso de prueba 3")
-		void testPB3_CP3() {
+		void testPN3_CP3() {
 			descripcion = "";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -138,7 +144,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 4")
-		void testPB3_CP4() {
+		void testPN3_CP4() {
 			descripcion = "Se realiza este trabajo";
 			presupuestos.add(1000.0);
 			coste = 0.01f;
@@ -158,7 +164,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 5")
-		void testPB3_CP5() {
+		void testPN3_CP5() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("");
 			presupuestos.add(1000.0);
@@ -179,7 +185,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 6")
-		void testPB3_CP6() {
+		void testPN3_CP6() {
 			descripcion = "Se realiza este trabajo";
 			presupuestos.add(1000.0);
 			coste = 0.01f;
@@ -199,7 +205,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 7")
-		void testPB3_CP7() {
+		void testPN3_CP7() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add(null);
 			presupuestos.add(1000.0);
@@ -220,7 +226,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 8")
-		void testPB3_CP8() {
+		void testPN3_CP8() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(-0.01);
@@ -241,7 +247,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 9")
-		void testPB3_CP9() {
+		void testPN3_CP9() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(null);
@@ -262,7 +268,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 10")
-		void testPB3_CP10() {
+		void testPN3_CP10() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			coste = 0.01f;
@@ -282,7 +288,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 11")
-		void testPB3_CP11() {
+		void testPN3_CP11() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -303,7 +309,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 12")
-		void testPB3_CP12() {
+		void testPN3_CP12() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -324,7 +330,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 13")
-		void testPB3_CP13() {
+		void testPN3_CP13() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -345,7 +351,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 14")
-		void testPB3_CP14() {
+		void testPN3_CP14() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -366,7 +372,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 15")
-		void testPB3_CP15() {
+		void testPN3_CP15() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -386,7 +392,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 16")
-		void testPB3_CP16() {
+		void testPN3_CP16() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -407,7 +413,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 17")
-		void testPB3_CP17() {
+		void testPN3_CP17() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -428,7 +434,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 18")
-		void testPB3_CP18() {
+		void testPN3_CP18() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -448,7 +454,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 19")
-		void testPB3_CP19() {
+		void testPN3_CP19() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -469,7 +475,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 20")
-		void testPB3_CP20() {
+		void testPN3_CP20() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -490,7 +496,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 21")
-		void testPB3_CP21() {
+		void testPN3_CP21() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -511,7 +517,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 22")
-		void testPB3_CP22() {
+		void testPN3_CP22() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -532,7 +538,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 23")
-		void testPB3_CP23() {
+		void testPN3_CP23() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -553,7 +559,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 24")
-		void testPB3_CP24() {
+		void testPN3_CP24() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -574,7 +580,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 25")
-		void testPB3_CP25() {
+		void testPN3_CP25() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
@@ -595,7 +601,7 @@ class TestGestorDeOOTT {
 
 		@Test
 		@DisplayName("Caso de prueba 26")
-		void testPB3_CP26() {
+		void testPN3_CP26() {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
