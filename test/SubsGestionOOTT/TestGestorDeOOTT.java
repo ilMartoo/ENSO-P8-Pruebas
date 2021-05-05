@@ -58,11 +58,6 @@ class TestGestorDeOOTT {
 						new ArrayList<>()));
 	}
 
-	@Test
-	void testPrueba() {
-		fail("Hola");
-	}
-
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 	}
@@ -73,7 +68,7 @@ class TestGestorDeOOTT {
 
 	@Nested
 	@DisplayName("Prueba de caja negra 3 - Creacion de ordenes de trabajo")
-	class PruebaCajaNegra_3 {
+	class PruebaCajaNegra {
 
 		@BeforeEach
 		void setUp() throws Exception {
