@@ -3,15 +3,15 @@ package SubsGestionOOTT;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.converter.ConvertWith;
-import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.Nested;
 
 import ModeladoDeDatos.Incidencia;
 import ModeladoDeDatos.OT;
@@ -19,18 +19,11 @@ import ModeladoDeDatos.Proceso;
 
 class TestGestorDeOOTT {
 
-	private ArrayList<String> materiales;
-	private ArrayList<Double> presupuestos;
-	private ArrayList<String> personal;
-	private Proceso proceso;
-
-	private GestorDeOOTT got;
-
+	private GestorDeOOTT gestorOT;
+	
 	@BeforeAll
-	void setUpAll() throws Exception {
-		materiales = new ArrayList<>();
-		presupuestos = new ArrayList<>();
-		personal = new ArrayList<>();
+	static void setUpAll() throws Exception {
+		
 
 		ArrayList<Incidencia> incidencias = new ArrayList<>();
 		incidencias.add(new Incidencia("0", "93218185J", "José Taboada", "+34999999999",
@@ -41,61 +34,44 @@ class TestGestorDeOOTT {
 				new ArrayList<>());
 	}
 
-	@BeforeEach
-	void setUpEach() throws Exception {
-		materiales.clear();
-		presupuestos.clear();
-		personal.clear();
-
-		got = new GestorDeOOTT();
-	}
-
-	@AfterEach
-	void tearDownEach() throws Exception {
-	}
-
 	@AfterAll
-	void tearDownAll() throws Exception {
+	static void tearDownAll() throws Exception {
 	}
 
-	@ParameterizedTest
-	@CsvFileSource(resources = "/crearOT.csv", numLinesToSkip = 1)
-	@DisplayName("Test para probar la creacion de ordenes de trabajo")
-	void testCrearOT(@ConvertWith(NullableConverter.class) String descripcion,
-			@ConvertWith(NullableConverter.class) String material,
-			@ConvertWith(NullableConverter.class) Double presupuesto, @ConvertWith(NullableConverter.class) Float coste,
-			@ConvertWith(NullableConverter.class) String responsable,
-			@ConvertWith(NullableConverter.class) String trabajador,
-			@ConvertWith(NullableConverter.class) String fechaInicio,
-			@ConvertWith(NullableConverter.class) Integer duracion, @ConvertWith(NullableConverter.class) String estado,
-			boolean procesoNulo, boolean nulo) {
-
-		// TODO lista nula
+	@Nested
+	@DisplayName("Prueba de caja negra 3 - Creacion de ordenes de trabajo")
+	class PN3 {
 		
-		if (!material.equals("vacio"))
-			materiales.add(material);
-		if (presupuesto > -69)
-			presupuestos.add(presupuesto);
-		if (!trabajador.equals("vacio"))
-			personal.add(trabajador);
-
-		OT orden = got.crearOT(descripcion, materiales, presupuestos, coste, responsable, personal, fechaInicio,
-				duracion, estado, procesoNulo ? null : proceso);
-
-		if (nulo) {
-
-			// Assert de un nulo
-			assertNull(orden, "Se ha creado una orden de trabajo invalida");
-
-		} else {
-
-			OT ordenResult = new OT("0", descripcion, materiales, presupuestos, coste, responsable, personal,
-					fechaInicio, duracion, estado, proceso);
-
-			// Assert de una orden de trabajo
-			assertEquals(ordenResult, orden, "La orden de trabajo no se ha creado correctamente");
+		private String descripcion;
+		private List<String> materiales;
+		private List<Double> presupuestos;
+		private Float coste;
+		private String responsable;
+		private List<String> personal;
+		private String fechaInicio;
+		private Integer duracion;
+		private String estado;
+		private Proceso proceso;
+		
+		@BeforeEach
+		void setUpEach() throws Exception {
+			gestorOT = new GestorDeOOTT();
+			
+			materiales = new ArrayList<>();
+			presupuestos = new ArrayList<>();
+			personal = new ArrayList<>();
 		}
+		
+		@AfterEach
+		void tearDownEach() throws Exception {
+		}
+		
+		@Test
+		@DisplayName("Test para probar la creacion de ordenes de trabajo")
+		void testPB3_N() {
 
+			
+
+		}
 	}
-
 }
