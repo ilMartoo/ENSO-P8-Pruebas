@@ -5,14 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import ModeladoDeDatos.Incidencia;
@@ -21,30 +20,17 @@ import ModeladoDeDatos.Proceso;
 import SubsGestionIncidencias.GestorDeIncidencias;
 import SubsGestionProcesos.GestorDeProcesos;
 
-class TestGestorDeOOTT {
+class TestGestionDeOOTT {
 
 	GestorDeOOTT gestorOT;
 	static GestorDeProcesos gestorP;
 	static GestorDeIncidencias gestorI;
 
-	String descripcion;
-	ArrayList<String> materiales;
-	ArrayList<Double> presupuestos;
-	Float coste;
-	String responsable;
-	ArrayList<String> personal;
-	String fechaInicio;
-	Integer duracion;
-	String estado;
-	Proceso proceso;
-
-	OT otResult;
-
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 
-		gestorP = new GestorDeProcesos();
-		gestorI = new GestorDeIncidencias();
+		gestorP = Mockito.mock(GestorDeProcesos.class);
+		gestorI = Mockito.mock(GestorDeIncidencias.class);
 
 		Mockito.when(gestorI.crearIncidencia(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
@@ -61,14 +47,25 @@ class TestGestorDeOOTT {
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 	}
-	
-	@AfterEach
-	void tearDown() throws Exception {
-	}
+
+
 
 	@Nested
-	@DisplayName("Prueba de caja negra 3 - Creacion de ordenes de trabajo")
-	class PruebaCajaNegra {
+	@DisplayName("Prueba de caja negra 3 - crearOT")
+	class PN3 {
+		
+		String descripcion;
+		ArrayList<String> materiales;
+		ArrayList<Double> presupuestos;
+		Float coste;
+		String responsable;
+		ArrayList<String> personal;
+		String fechaInicio;
+		Integer duracion;
+		String estado;
+		Proceso proceso;
+
+		OT otResult;
 
 		@BeforeEach
 		void setUp() throws Exception {
@@ -83,12 +80,23 @@ class TestGestorDeOOTT {
 			proceso.getIncidencias().add(gestorI.crearIncidencia(Mockito.anyString(), Mockito.anyString(),
 					Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()));
 		}
+		
+		@AfterEach
+		void tearDown() throws Exception {
+			gestorOT = null;
+
+			materiales = null;
+			presupuestos = null;
+			personal = null;
+			proceso = null;
+			
+			otResult = null;
+		}
 
 		@Test
-		@DisplayName("Caso de prueba 1,2")
-		void testPN3_CP1_CP2() {
-			String descripcion1 = "Se realiza este trabajo";
-			String descripcion2 = null;
+		@DisplayName("Caso de prueba 1")
+		void testPN3_CP1() {
+			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
@@ -98,22 +106,41 @@ class TestGestorDeOOTT {
 			duracion = 1;
 			estado = "pendiente";
 
-			OT ot1 = new OT("0", descripcion1, materiales, presupuestos, coste, responsable, personal, fechaInicio,
+			OT ot = new OT("0", descripcion, materiales, presupuestos, coste, responsable, personal, fechaInicio,
 					duracion, estado, proceso);
-			OT ot2 = new OT("0", descripcion2, materiales, presupuestos, coste, responsable, personal, fechaInicio,
-					duracion, estado, proceso);
-
+			
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion1, materiales, presupuestos, coste,
+							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
 									responsable, personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
+					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es válida"));
+		}
+		
+		@Test
+		@DisplayName("Caso de prueba 2")
+		void testPN3_CP2() {
+			descripcion = null;
+			materiales.add("Martillo");
+			presupuestos.add(1000.0);
+			coste = 0.01f;
+			responsable = "Desatranques Jaén";
+			personal.add("93218185J");
+			fechaInicio = "15/07/21";
+			duracion = 1;
+			estado = "pendiente";
+
+			OT ot = new OT("0", descripcion, materiales, presupuestos, coste, responsable, personal, fechaInicio,
+					duracion, estado, proceso);
+			
+			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion2, materiales, presupuestos, coste,
-									responsable, personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertEquals(ot1, otResult, "La orden de trabajo creada no es válida"),
-					() -> assertEquals(ot2, otResult, "La orden de trabajo creada no es válida"));
+					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es válida"));
 		}
 
 		@Test
@@ -213,8 +240,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -255,8 +284,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -317,8 +348,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -359,8 +392,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -421,8 +456,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -462,8 +499,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -546,8 +585,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -588,8 +629,10 @@ class TestGestorDeOOTT {
 
 			assertAll(
 					() -> assertTimeout(Duration.ofSeconds(1),
-							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
-									personal, fechaInicio, duracion, estado, proceso),
+							() -> assertDoesNotThrow(
+									() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+											responsable, personal, fechaInicio, duracion, estado, proceso),
+									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
 		}
@@ -614,6 +657,61 @@ class TestGestorDeOOTT {
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
 					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+		}
+	}
+
+	@Nested
+	@DisplayName("Prueba de caja blanca 3 - actualizarOT")
+	class PB3{
+
+		@BeforeEach
+		void setUp() throws Exception {
+			gestorOT = new GestorDeOOTT();
+
+			materiales = new ArrayList<>();
+			presupuestos = new ArrayList<>();
+			personal = new ArrayList<>();
+
+			proceso = gestorP.crearProceso(Mockito.anyString(), Mockito.anyString(), Mockito.anyFloat(),
+					Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyList());
+			proceso.getIncidencias().add(gestorI.crearIncidencia(Mockito.anyString(), Mockito.anyString(),
+					Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()));
+		}
+		
+		@AfterEach
+		void tearDown() throws Exception {
+			gestorOT = null;
+
+			materiales = null;
+			presupuestos = null;
+			personal = null;
+			proceso = null;
+			
+			otResult = null;
+		}
+
+		@Test
+		@DisplayName("Caso de prueba 1")
+		void testPN3_CP1() {
+			descripcion = "Se realiza este trabajo";
+			materiales.add("Martillo");
+			presupuestos.add(1000.0);
+			coste = 0.01f;
+			responsable = "Desatranques Jaén";
+			personal.add("93218185J");
+			fechaInicio = "15/07/21";
+			duracion = 1;
+			estado = "pendiente";
+
+			OT ot = new OT("0", descripcion, materiales, presupuestos, coste, responsable, personal, fechaInicio,
+					duracion, estado, proceso);
+			
+			assertAll(
+					() -> assertTimeout(Duration.ofSeconds(1),
+							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste,
+									responsable, personal, fechaInicio, duracion, estado, proceso),
+							"Se ha tardado mas de 1 segundo en obtener un resultado"),
+					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es válida"));
 		}
 	}
 }
