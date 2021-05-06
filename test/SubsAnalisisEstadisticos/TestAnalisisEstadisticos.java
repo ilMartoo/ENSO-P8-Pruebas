@@ -14,9 +14,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import ModeladoDeDatos.Incidencia;
+import ModeladoDeDatos.OT;
 import ModeladoDeDatos.Proceso;
 import SubsGestionIncidencias.GestorDeIncidencias;
 import SubsGestionIncidencias.InterfazGestorIncidencias;
@@ -25,17 +30,28 @@ import SubsGestionOOTT.InterfazGestorOOTT;
 import SubsGestionProcesos.GestorDeProcesos;
 import SubsGestionProcesos.InterfazGestorProcesos;
 
-class TestAnalisisEstadisticos {
+class TestAnalisisEstadisticos {	
 	
-	static InterfazGestorIncidencias incidencias;
-	static InterfazGestorProcesos procesos;
-	static InterfazGestorOOTT ordenesTrabajo;
-	static InterfazGestorEstadisticas estadisticas;
+	/*clases a mockear*/
+	GestorDeIncidencias gi;
+	GestorDeProcesos gp;
+	GestorDeOOTT got;
+	
+	@InjectMocks
+	/*clase a probar*/
+	AnalisisEstadisticos ge;
 	
 	static Date hoy;
+	static DateFormat format;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		
+		hoy = new Date();
+		
+		format = new SimpleDateFormat("dd/MM/yy");
+		
+		/*
 		incidencias = new GestorDeIncidencias();
 		procesos = new GestorDeProcesos();
 		ordenesTrabajo = new GestorDeOOTT();
@@ -70,6 +86,7 @@ class TestAnalisisEstadisticos {
 		ordenesTrabajo.crearOT("OT 1", material, presupuestos, (float)30, "98765432C", personal, format.format(hoy), 20, "prueba", p1);
 		ordenesTrabajo.crearOT("OT 2", material, presupuestos, (float)20, "98765432C", personal, format.format(hoy), 20, "prueba", p2);
 		ordenesTrabajo.crearOT("OT 3", material, presupuestos, (float)10, "12345678N", personal, format.format(hoy), 20, "prueba", p3);
+		*/
 	}
 
 	@AfterAll
@@ -78,6 +95,41 @@ class TestAnalisisEstadisticos {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		
+		// Mockeamos las clases a injectar
+		gi = Mockito.mock(GestorDeIncidencias.class);
+		gp = Mockito.mock(GestorDeProcesos.class);
+		got = Mockito.mock(GestorDeOOTT.class);
+		
+		// Inicializa los mocks anotados con su clases inyectadas.
+		MockitoAnnotations.initMocks(this);
+		
+		// Inicializamos los objetos que vamos a emplear
+		Incidencia i1 = new Incidencia("I0001", "Ana García", "98765432M", "+01234567891", "Incidencia de ejemplo 1", "Vigo", "prueba");
+		Incidencia i2 = new Incidencia("I0002", "Ana García", "98765432M", "+01234567891", "Incidencia de ejemplo 2", "Vigo", "prueba");
+		Incidencia i3 = new Incidencia("I0003", "Pedro González", "12345678Z", "+01234567891", "Incidencia de ejemplo 3", "Vigo", "prueba");
+		
+		ArrayList<Incidencia> incidencias = new ArrayList<>();
+		incidencias.add(i1); incidencias.add(i2); incidencias.add(i3);
+		
+		Proceso p1 = new Proceso("P1","Proceso 1",(float)50,30,"Bajo prueba","Ana García","Servicio 1",incidencias);
+		Proceso p2 = new Proceso("P2","Proceso 2",(float)30,20,"Bajo prueba","Ana García","Servicio 1",incidencias);
+		Proceso p3 = new Proceso("P3","Proceso 3",(float)20,10,"Bajo prueba","Pedro González","Servicio 1",incidencias);
+		
+		ArrayList<Proceso> procesos = new ArrayList<>();
+		procesos.add(p1); procesos.add(p2); procesos.add(p3);
+		
+		OT o1 = new OT("OT1","Orden 1",null,null,(float)40,"Ana García",null,format.format(hoy),3,"Bajo prueba",p1);
+		OT o2 = new OT("OT2","Orden 2",null,null,(float)40,"Ana García",null,format.format(hoy),3,"Bajo prueba",p2);
+		OT o3 = new OT("OT3","Orden 3",null,null,(float)40,"Pedro Gonzálezs",null,format.format(hoy),3,"Bajo prueba",p3);
+	
+		ArrayList<OT> ordenes = new ArrayList<>();
+		ordenes.add(o1); ordenes.add(o2); ordenes.add(o3);
+		
+		// Preparamos el comportamiento de los mocks
+		Mockito.when(gi.getIncidencias(null, null)).thenReturn(incidencias);
+		Mockito.when(gp.getProcesos(null, null)).thenReturn(procesos);
+		Mockito.when(got.getOOTT(null, null)).thenReturn(ordenes);
 	}
 
 	@AfterEach
@@ -88,24 +140,11 @@ class TestAnalisisEstadisticos {
 	void testTotalIncidencias() {
 		
 		assertAll(
-				()->{assertEquals(2,estadisticas.totalIncidencias("dni", "98765432C"),"Error en el recuento filtrado por dni de incidencias.");},
-				()->{assertEquals(3,estadisticas.totalIncidencias(null, null),"Error en el recuento total de incidencias.");},
-				()->{assertNull(estadisticas.totalIncidencias("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.totalIncidencias("dni", ""),"El valor de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.totalIncidencias("dni", null),"El valor de filtrado sí es válido.");}
-				);
-	}
-
-	
-	@Test
-	void testTotalProcesos() {
-		
-		assertAll(
-				()->{assertEquals(2,estadisticas.totalProcesos("responsable", "98765432C"),"Error en el recuento filtrado por dni de procesos.");},
-				()->{assertEquals(3,estadisticas.totalProcesos(null, null),"Error en el recuento total de procesos.");},
-				()->{assertNull(estadisticas.totalProcesos("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.totalProcesos("responsable", ""),"El valor de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.totalProcesos("responsable", null),"El valor de filtrado sí es válido.");}
+				()->{assertEquals(2,ge.totalIncidencias("dni", "98765432C"),"Error en el recuento filtrado por dni de incidencias.");},
+				()->{assertEquals(3,ge.totalIncidencias(null, null),"Error en el recuento total de incidencias.");},
+				()->{assertNull(ge.totalIncidencias("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
+				()->{assertNull(ge.totalIncidencias("dni", ""),"El valor de filtrado sí es válido.");},
+				()->{assertNull(ge.totalIncidencias("dni", null),"El valor de filtrado sí es válido.");}
 				);
 	}
 
@@ -114,11 +153,11 @@ class TestAnalisisEstadisticos {
 	void testTotalOOTT() {
 		
 		assertAll(
-				()->{assertEquals(2,estadisticas.totalOOTT("responsable", "98765432C"),"Error en el recuento filtrado por dni de OOTT.");},
-				()->{assertEquals(3,estadisticas.totalOOTT(null, null),"Error en el recuento total de OOTT.");},
-				()->{assertNull(estadisticas.totalOOTT("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.totalOOTT("responsable", ""),"El valor de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.totalOOTT("responsable", null),"El valor de filtrado sí es válido.");}
+				()->{assertEquals(2,ge.totalOOTT("responsable", "Ana García"),"Error en el recuento filtrado por dni de OOTT.");},
+				()->{assertEquals(3,ge.totalOOTT(null, null),"Error en el recuento total de OOTT.");},
+				()->{assertNull(ge.totalOOTT("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
+				()->{assertNull(ge.totalOOTT("responsable", ""),"El valor de filtrado sí es válido.");},
+				()->{assertNull(ge.totalOOTT("responsable", null),"El valor de filtrado sí es válido.");}
 				);
 	}
 
@@ -126,11 +165,11 @@ class TestAnalisisEstadisticos {
 	void testDistribucionIncidencias() {
 		
 		assertAll(
-				()->{assertEquals(crearMapa(hoy,2),estadisticas.distribucionIncidencias("dni", "98765432C"),"El resultado filtrado no es igual.");},
-				()->{assertEquals(crearMapa(hoy,3),estadisticas.distribucionIncidencias(null, null),"El resultado total no es igual.");},
-				()->{assertNull(estadisticas.distribucionIncidencias("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.distribucionIncidencias("dni", ""),"El valor de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.distribucionIncidencias("dni", null),"El valor de filtrado sí es válido.");}
+				()->{assertEquals(crearMapa(hoy,2),ge.distribucionIncidencias("dni", "98765432C"),"El resultado filtrado no es igual.");},
+				()->{assertEquals(crearMapa(hoy,3),ge.distribucionIncidencias(null, null),"El resultado total no es igual.");},
+				()->{assertNull(ge.distribucionIncidencias("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
+				()->{assertNull(ge.distribucionIncidencias("dni", ""),"El valor de filtrado sí es válido.");},
+				()->{assertNull(ge.distribucionIncidencias("dni", null),"El valor de filtrado sí es válido.");}
 				);
 	}
 
@@ -138,11 +177,11 @@ class TestAnalisisEstadisticos {
 	void testDistribucionProcesos() {
 		
 		assertAll(
-				()->{assertEquals(crearMapa(hoy,2),estadisticas.distribucionProcesos("responsable", "98765432C"),"El resultado filtrado no es igual.");},
-				()->{assertEquals(crearMapa(hoy,3),estadisticas.distribucionProcesos(null, null),"El resultado total no es igual.");},
-				()->{assertNull(estadisticas.distribucionProcesos("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.distribucionProcesos("responsable", ""),"El valor de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.distribucionProcesos("responsable", null),"El valor de filtrado sí es válido.");}
+				()->{assertEquals(crearMapa(hoy,2),ge.distribucionProcesos("responsable", "Ana García"),"El resultado filtrado no es igual.");},
+				()->{assertEquals(crearMapa(hoy,3),ge.distribucionProcesos(null, null),"El resultado total no es igual.");},
+				()->{assertNull(ge.distribucionProcesos("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
+				()->{assertNull(ge.distribucionProcesos("responsable", ""),"El valor de filtrado sí es válido.");},
+				()->{assertNull(ge.distribucionProcesos("responsable", null),"El valor de filtrado sí es válido.");}
 				);
 	}
 
@@ -150,11 +189,11 @@ class TestAnalisisEstadisticos {
 	void testDistribucionOOTT() {
 		
 		assertAll(
-				()->{assertEquals(crearMapa(hoy,2),estadisticas.distribucionOOTT("responsable", "98765432C"),"El resultado filtrado no es igual.");},
-				()->{assertEquals(crearMapa(hoy,3),estadisticas.distribucionOOTT(null, null),"El resultado total no es igual.");},
-				()->{assertNull(estadisticas.distribucionOOTT("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.distribucionOOTT("responsable", ""),"El valor de filtrado sí es válido.");},
-				()->{assertNull(estadisticas.distribucionOOTT("responsable", null),"El valor de filtrado sí es válido.");}
+				()->{assertEquals(crearMapa(hoy,2),ge.distribucionOOTT("responsable", "Ana García"),"El resultado filtrado no es igual.");},
+				()->{assertEquals(crearMapa(hoy,3),ge.distribucionOOTT(null, null),"El resultado total no es igual.");},
+				()->{assertNull(ge.distribucionOOTT("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");},
+				()->{assertNull(ge.distribucionOOTT("responsable", ""),"El valor de filtrado sí es válido.");},
+				()->{assertNull(ge.distribucionOOTT("responsable", null),"El valor de filtrado sí es válido.");}
 				);
 	}
 	
