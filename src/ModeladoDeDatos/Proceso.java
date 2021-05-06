@@ -163,7 +163,16 @@ public class Proceso {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((coste == null) ? 0 : coste.hashCode());
+		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((estimado == null) ? 0 : estimado.hashCode());
+		result = prime * result + ((fechaCreacion == null) ? 0 : fechaCreacion.hashCode());
+		result = prime * result + ((incidencias == null) ? 0 : incidencias.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((ots == null) ? 0 : ots.hashCode());
+		result = prime * result + ((responsable == null) ? 0 : responsable.hashCode());
+		result = prime * result + ((servicio == null) ? 0 : servicio.hashCode());
 		return result;
 	}
 
@@ -176,10 +185,55 @@ public class Proceso {
 		if (getClass() != obj.getClass())
 			return false;
 		Proceso other = (Proceso) obj;
+		if (coste == null) {
+			if (other.coste != null)
+				return false;
+		} else if (!coste.equals(other.coste))
+			return false;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (estimado == null) {
+			if (other.estimado != null)
+				return false;
+		} else if (!estimado.equals(other.estimado))
+			return false;
+		if (fechaCreacion == null) {
+			if (other.fechaCreacion != null)
+				return false;
+		} else if (!fechaCreacion.equals(other.fechaCreacion))
+			return false;
+		if (incidencias == null) {
+			if (other.incidencias != null)
+				return false;
+		} else if (!incidencias.equals(other.incidencias))
+			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (ots == null) {
+			if (other.ots != null)
+				return false;
+		} else if (!ots.equals(other.ots))
+			return false;
+		if (responsable == null) {
+			if (other.responsable != null)
+				return false;
+		} else if (!responsable.equals(other.responsable))
+			return false;
+		if (servicio == null) {
+			if (other.servicio != null)
+				return false;
+		} else if (!servicio.equals(other.servicio))
 			return false;
 		return true;
 	}

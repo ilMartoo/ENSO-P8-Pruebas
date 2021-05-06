@@ -136,6 +136,16 @@ public class OT {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
+		result = prime * result + ((coste == null) ? 0 : coste.hashCode());
+		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + ((duracion == null) ? 0 : duracion.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((fechaInicio == null) ? 0 : fechaInicio.hashCode());
+		result = prime * result + ((material == null) ? 0 : material.hashCode());
+		result = prime * result + ((personal == null) ? 0 : personal.hashCode());
+		result = prime * result + ((presupuestos == null) ? 0 : presupuestos.hashCode());
+		result = prime * result + ((proceso == null) ? 0 : proceso.hashCode());
+		result = prime * result + ((responsable == null) ? 0 : responsable.hashCode());
 		return result;
 	}
 
@@ -152,6 +162,56 @@ public class OT {
 			if (other.ID != null)
 				return false;
 		} else if (!ID.equals(other.ID))
+			return false;
+		if (coste == null) {
+			if (other.coste != null)
+				return false;
+		} else if (!coste.equals(other.coste))
+			return false;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (duracion == null) {
+			if (other.duracion != null)
+				return false;
+		} else if (!duracion.equals(other.duracion))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (fechaInicio == null) {
+			if (other.fechaInicio != null)
+				return false;
+		} else if (!fechaInicio.equals(other.fechaInicio))
+			return false;
+		if (material == null) {
+			if (other.material != null)
+				return false;
+		} else if (!material.equals(other.material))
+			return false;
+		if (personal == null) {
+			if (other.personal != null)
+				return false;
+		} else if (!personal.equals(other.personal))
+			return false;
+		if (presupuestos == null) {
+			if (other.presupuestos != null)
+				return false;
+		} else if (!presupuestos.equals(other.presupuestos))
+			return false;
+		if (proceso == null) {
+			if (other.proceso != null)
+				return false;
+		} else if (!proceso.equals(other.proceso))
+			return false;
+		if (responsable == null) {
+			if (other.responsable != null)
+				return false;
+		} else if (!responsable.equals(other.responsable))
 			return false;
 		return true;
 	}
