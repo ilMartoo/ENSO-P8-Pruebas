@@ -47,9 +47,10 @@ class TestGestionDeOOTT {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		gestorI = null;
+		gestorP = null;
 	}
 
-	@Disabled
 	@Nested
 	@DisplayName("Prueba de caja negra 3 - crearOT")
 	class PN3 {
@@ -634,7 +635,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo inválida"));
 		}
 
 		@Test
@@ -656,7 +657,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo inválida"));
 		}
 	}
 
@@ -1076,7 +1077,7 @@ class TestGestionDeOOTT {
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
 					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f,
-					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			otResult = new OT("0", valor, materiales2, presupuestos2, 0.01f, "Desatranques Jaén", personal2, "15/07/21",
 					1, "pendiente", proceso2);
 
@@ -1138,7 +1139,7 @@ class TestGestionDeOOTT {
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
 					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materialesOriginal, presupuestos2, 0.01f,
-					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
@@ -1199,7 +1200,7 @@ class TestGestionDeOOTT {
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
 					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestosOriginales, 0.01f,
-					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
@@ -1257,9 +1258,9 @@ class TestGestionDeOOTT {
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
 					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, Float.valueOf(valor),
 					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, Float.valueOf(valor), "Desatranques Jaén",
-					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
 
@@ -1315,9 +1316,9 @@ class TestGestionDeOOTT {
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
 					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, valor,
-					personal2, "15/07/21", 1, "pendiente", proceso2);
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, valor, personal2,
+					"15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
 
@@ -1355,10 +1356,125 @@ class TestGestionDeOOTT {
 			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
 		}
 
-		/*
 		@Test
-		@DisplayName("Camino lógico X")
-		void testPB3_CLX() {
+		@DisplayName("Camino lógico 23")
+		void testPB3_CL23() {
+			id = "0";
+			campo = "duracion";
+			valor = "10";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", Integer.valueOf(valor), "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertAll(() -> assertNotEquals(otOriginal, otModificable, "No se ha cambiado la orden de trabajo"),
+					() -> assertEquals(otResult, otModificable,
+							"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+
+		@Test
+		@DisplayName("Camino lógico 24")
+		void testPB3_CL24() {
+			id = "0";
+			campo = "duracion";
+			valor = "0";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 25")
+		void testPB3_CL25() {
+			id = "0";
+			campo = "estado";
+			valor = "pendiente";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertAll(() -> assertNotEquals(otOriginal, otModificable, "No se ha cambiado la orden de trabajo"),
+					() -> assertEquals(otResult, otModificable,
+							"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+
+		@Test
+		@DisplayName("Camino lógico 26")
+		void testPB3_CL26() {
+			id = "0";
+			campo = "estado";
+			valor = "Lorem ipsum dolor sit amet";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 27")
+		void testPB3_CL27() {
 			id = "0";
 			campo = "main";
 			valor = "Hola mundo";
@@ -1384,11 +1500,11 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico X")
-		void testPB3_CLX() {
+		@DisplayName("Camino lógico 28")
+		void testPB3_CL28() {
 			id = "0";
-			campo = "main";
-			valor = "Hola mundo";
+			campo = "fechaInicio";
+			valor = "01/11/2021";
 
 			materiales1.add("Martillo");
 			presupuestos1.add(1000.0);
@@ -1408,6 +1524,534 @@ class TestGestionDeOOTT {
 			gestorOT.actualizarOT(id, campo, valor);
 
 			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
-		}*/
+		}
+
+		@Test
+		@DisplayName("Camino lógico 29")
+		void testPB3_CL29() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "A1/11/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 30")
+		void testPB3_CL30() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "0A/11/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 31")
+		void testPB3_CL31() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01A11/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 32")
+		void testPB3_CL32() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/A1/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 33")
+		void testPB3_CL33() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/1A/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 34")
+		void testPB3_CL34() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/11A21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 35")
+		void testPB3_CL35() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/11/A1";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 36")
+		void testPB3_CL36() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/11/2A";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 37")
+		void testPB3_CL37() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "31/11/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 38")
+		void testPB3_CL38() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/12/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 39")
+		void testPB3_CL39() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "01/11/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, valor, 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertAll(() -> assertNotEquals(otOriginal, otModificable, "No se ha cambiado la orden de trabajo"),
+					() -> assertEquals(otResult, otModificable,
+							"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+
+		@Test
+		@DisplayName("Camino lógico 40")
+		void testPB3_CL40() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "29/02/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 41")
+		void testPB3_CL41() {
+			id = "0";
+			campo = "fechaInicio";
+			valor = "29/11/21";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, valor, 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertAll(() -> assertNotEquals(otOriginal, otModificable, "No se ha cambiado la orden de trabajo"),
+					() -> assertEquals(otResult, otModificable,
+							"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+
+		@Test
+		@DisplayName("Camino lógico 42")
+		void testPB3_CL42() {
+			id = "0";
+			campo = "personal";
+			valor = "1";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 43")
+		void testPB3_CL43() {
+			id = "0";
+			campo = "personal";
+			valor = "A12345678";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 44")
+		void testPB3_CL44() {
+			id = "0";
+			campo = "personal";
+			valor = "1A2345678";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 45")
+		void testPB3_CL45() {
+			id = "0";
+			campo = "personal";
+			valor = "12345678-";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 46")
+		void testPB3_CL46() {
+			id = "0";
+			campo = "personal";
+			valor = "123456789";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertEquals(otResult, otModificable, "Se ha actualizado la orden de trabajo con valores no validos");
+		}
+
+		@Test
+		@DisplayName("Camino lógico 47")
+		void testPB3_CL47() {
+			id = "0";
+			campo = "personal";
+			valor = "12345678Z";
+
+			materiales1.add("Martillo");
+			presupuestos1.add(1000.0);
+			personal1.add("93218185J");
+
+			materiales2.add("Martillo");
+			presupuestos2.add(1000.0);
+			personal2.add("93218185J");
+			personal2.add("12345678Z");
+
+			ArrayList<Double> personalOriginal = (ArrayList<Double>) personal1.clone();
+			
+			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
+					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f,
+					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
+
+			ordenes.add(otModificable);
+
+			gestorOT.actualizarOT(id, campo, valor);
+
+			assertAll(() -> assertNotEquals(otOriginal, otModificable, "No se ha cambiado la orden de trabajo"),
+					() -> assertEquals(otResult, otModificable,
+							"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
 	}
 }
