@@ -75,231 +75,237 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	class Incidencias{
+	@DisplayName("Total incidencias")
+	class PN5{
 		
 		@BeforeEach
 		void setUp() throws Exception {
-			
-			// Inicializamos los objetos que vamos a emplear
-			Incidencia i1 = new Incidencia("I0001", "Ana García", "98765432M", "+01234567891", "Incidencia de ejemplo 1", "Vigo", "prueba");
-			Incidencia i2 = new Incidencia("I0002", "Ana García", "98765432M", "+01234567891", "Incidencia de ejemplo 2", "Vigo", "prueba");
-			Incidencia i3 = new Incidencia("I0003", "Pedro González", "12345678Z", "+01234567891", "Incidencia de ejemplo 3", "Vigo", "prueba");
-			
-			ArrayList<Incidencia> incidencias = new ArrayList<>();
-			incidencias.add(i1); incidencias.add(i2); incidencias.add(i3);
-			
-			// Preparamos el comportamiento del mock
-			Mockito.when(gi.getIncidencias(null, null)).thenReturn(incidencias);
+			inicializarIncidencias();
 		}
 		
-		@Nested
-		class Recuento {
-		
-			@Test
-			void recuentoTotal() {
-				assertEquals(3,ge.totalIncidencias(null, null),"Error en el recuento total de incidencias.");
-			}
-			
-			@Test
-			void recuentoFiltrado() {
-				assertEquals(2,ge.totalIncidencias("dni", "98765432C"),"Error en el recuento filtrado por dni de incidencias.");
-			}
-			
-			@Test
-			void recuentoCampoFiltradoInvalido() {
-				assertNull(ge.totalIncidencias("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");
-			}
-			
-			@Test
-			void recuentoValorFiltradoInvalido() {
-				assertAll(
-						()->{assertNull(ge.totalIncidencias("dni", ""),"El valor de filtrado sí es válido.");},
-						()->{assertNull(ge.totalIncidencias("dni", null),"El valor de filtrado sí es válido.");}
-						);
-			}
+		@Test
+		@DisplayName("Recuento total")
+		void PN5_CP2() {
+			assertEquals(3,ge.totalIncidencias(null, null),"Error en el recuento total de incidencias.");
 		}
 		
-		@Nested
-		class Distribucion {
-			
-			@Test
-			void distribucionTotal() {
-				assertEquals(crearMapa(hoy,3),ge.distribucionIncidencias(null, null),"El resultado total no es igual.");
-			}
-			
-			
-			@Test
-			void distribucionFiltrado() {
-				assertEquals(crearMapa(hoy,2),ge.distribucionIncidencias("dni", "98765432C"),"El resultado filtrado no es igual.");
-			}
-			
-			@Test
-			void distribucionCampoFiltradoInvalido() {
-				assertNull(ge.distribucionIncidencias("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");
-			}
-			
-			@Test
-			void distribucionValorFiltradoInvalido() {
-				
-				assertAll(
-						()->{assertNull(ge.distribucionIncidencias("dni", ""),"El valor de filtrado sí es válido.");},
-						()->{assertNull(ge.distribucionIncidencias("dni", null),"El valor de filtrado sí es válido.");}
-						);
-			}
+		@Test
+		@DisplayName("Recuento filtrado por responsable")
+		void PN5_CP1() {
+			assertEquals(2,ge.totalIncidencias("responsable", "Ana García"),"Error en el recuento filtrado por responsable de incidencias.");
+		}
+		
+		@Test
+		@DisplayName("Recuento filtrado por campo inválido")
+		void PN5_CP3() {
+			assertNull(ge.totalIncidencias("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
+		}
+		
+		@Test
+		@DisplayName("Recuento filtrado por valor inválido")
+		void PN5_CP4_CP5() {
+			assertAll(
+					()->{assertNull(ge.totalIncidencias("responsable", ""),"Se permite filtrar por valores inválidos.");},
+					()->{assertNull(ge.totalIncidencias("responsable", null),"Se permite filtrar por nulos.");}
+					);
 		}
 	}
 	
 	
 	
 	@Nested
-	class Procesos{
+	@DisplayName("Total procesos")
+	class PN6{
 		
 		@BeforeEach
 		void setUp() throws Exception {
-			
-			// Inicializamos los objetos que vamos a emplear
-			Proceso p1 = new Proceso("P1","Proceso 1",(float)50,30,"Bajo prueba","Ana García","Servicio 1",new ArrayList<Incidencia>());
-			Proceso p2 = new Proceso("P2","Proceso 2",(float)30,20,"Bajo prueba","Ana García","Servicio 1",new ArrayList<Incidencia>());
-			Proceso p3 = new Proceso("P3","Proceso 3",(float)20,10,"Bajo prueba","Pedro González","Servicio 1",new ArrayList<Incidencia>());
-			
-			ArrayList<Proceso> procesos = new ArrayList<>();
-			procesos.add(p1); procesos.add(p2); procesos.add(p3);
-			
-			// Preparamos el comportamiento del mock
-			Mockito.when(gp.getProcesos(null, null)).thenReturn(procesos);
+			inicializarProcesos();
+		}
+
+		
+		@Test
+		@DisplayName("Recuento total")
+		void PN6_CP2() {
+			assertEquals(3,ge.totalProcesos(null, null),"Error en el recuento total de procesos.");
 		}
 		
-		@Nested
-		class Recuento {
-		
-			@Test
-			void recuentoTotal() {
-				assertEquals(3,ge.totalProcesos(null, null),"Error en el recuento total de incidencias.");
-			}
-			
-			@Test
-			void recuentoFiltrado() {
-				assertEquals(2,ge.totalProcesos("dni", "98765432C"),"Error en el recuento filtrado por dni de incidencias.");
-			}
-			
-			@Test
-			void recuentoCampoFiltradoInvalido() {
-				assertNull(ge.totalProcesos("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");
-			}
-			
-			@Test
-			void recuentoValorFiltradoInvalido() {
-				assertAll(
-						()->{assertNull(ge.totalProcesos("dni", ""),"El valor de filtrado sí es válido.");},
-						()->{assertNull(ge.totalProcesos("dni", null),"El valor de filtrado sí es válido.");}
-						);
-			}
+		@Test
+		@DisplayName("Recuento filtrado por responsable")
+		void PN6_CP1() {
+			assertEquals(2,ge.totalProcesos("responsable", "Ana García"),"Error en el recuento filtrado por responsable de procesos.");
 		}
 		
-		@Nested
-		class Distribucion{
-			
-			@Test
-			void distribucionTotal() {
-				assertEquals(crearMapa(hoy,3),ge.distribucionProcesos(null, null),"El resultado total no es igual.");
-			}
-			
-			
-			@Test
-			void distribucionFiltrado() {
-				assertEquals(crearMapa(hoy,2),ge.distribucionProcesos("responsable", "Ana García"),"El resultado filtrado no es igual.");
-			}
-			
-			@Test
-			void distribucionCampoFiltradoInvalido() {
-				assertNull(ge.distribucionProcesos("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");
-			}
-			
-			@Test
-			void distribucionValorFiltradoInvalido() {
-				
-				assertAll(
-						()->{assertNull(ge.distribucionProcesos("responsable", ""),"El valor de filtrado sí es válido.");},
-						()->{assertNull(ge.distribucionProcesos("responsable", null),"El valor de filtrado sí es válido.");}
-						);
-			}
+		@Test
+		@DisplayName("Recuento filtrado por campo inválido")
+		void PN6_CP3() {
+			assertNull(ge.totalProcesos("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
+		}
+		
+		@Test
+		@DisplayName("Recuento filtrado por valor inválido")
+		void PN6_CP4_CP5() {
+			assertAll(
+					()->{assertNull(ge.totalProcesos("responsable", ""),"Se permite filtrar por valores inválidos.");},
+					()->{assertNull(ge.totalProcesos("responsable", null),"Se permite filtrar por nulos.");}
+					);
+		}
+		
+	}
+	
+	
+	@Nested
+	@DisplayName("Total órdenes de trabajo")
+	class PN7{
+		
+		@BeforeEach
+		void setUp() throws Exception {
+			inicializarOrdenesTrabajo();
+		}
+		
+		@Test
+		@DisplayName("Recuento total")
+		void PN7_CP2() {
+			assertEquals(3,ge.totalOOTT(null, null),"Error en el recuento total de órdenes de trabajo.");
+		}
+		
+		@Test
+		@DisplayName("Recuento filtrado por responsable")
+		void PN7_CP1() {
+			assertEquals(2,ge.totalOOTT("responsable", "Ana García"),"Error en el recuento filtrado por responsable de órdenes de trabajo.");
+		}
+		
+		@Test
+		@DisplayName("Recuento filtrado por campo inválido")
+		void PN7_CP3() {
+			assertNull(ge.totalOOTT("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
+		}
+		
+		@Test
+		@DisplayName("Recuento filtrado por valor inválido")
+		void PN7_CP4_CP5() {
+			assertAll(
+					()->{assertNull(ge.totalOOTT("responsable", ""),"Se permite filtrar por valores inválidos.");},
+					()->{assertNull(ge.totalOOTT("responsable", null),"Se permite filtrar por nulos.");}
+					);
 		}
 	}
 	
 	
 	@Nested
-	class OrdenesTrabajo{
+	@DisplayName("Distribución semanal incidencias")
+	class PN8 {
 		
 		@BeforeEach
 		void setUp() throws Exception {
-			
-			// Inicializamos los objetos que vamos a emplear
-			OT o1 = new OT("OT1","Orden 1",null,null,(float)40,"Ana García",null,format.format(hoy),3,"Bajo prueba",null);
-			OT o2 = new OT("OT2","Orden 2",null,null,(float)40,"Ana García",null,format.format(hoy),3,"Bajo prueba",null);
-			OT o3 = new OT("OT3","Orden 3",null,null,(float)40,"Pedro Gonzálezs",null,format.format(hoy),3,"Bajo prueba",null);
+			inicializarIncidencias();
+		}
 		
-			ArrayList<OT> ordenes = new ArrayList<>();
-			ordenes.add(o1); ordenes.add(o2); ordenes.add(o3);
-			
-			// Preparamos el comportamiento del mock
-			Mockito.when(got.getOOTT(null, null)).thenReturn(ordenes);
+		@Test
+		@DisplayName("Distribución total")
+		void PN8_CP2() {
+			assertEquals(crearMapa(hoy,3),ge.distribucionIncidencias(null, null),"Error en la distribución total de incidencias.");
 		}
 		
 		
-		@Nested
-		class Recuento {
-		
-			@Test
-			void recuentoTotal() {
-				assertEquals(3,ge.totalOOTT(null, null),"Error en el recuento total de OOTT.");
-			}
-			
-			@Test
-			void recuentoFiltrado() {
-				assertEquals(2,ge.totalOOTT("responsable", "Ana García"),"Error en el recuento filtrado por dni de OOTT.");
-			}
-			
-			@Test
-			void recuentoCampoFiltradoInvalido() {
-				assertNull(ge.totalOOTT("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");
-			}
-			
-			@Test
-			void recuentoValorFiltradoInvalido() {
-				assertAll(
-						()->{assertNull(ge.totalOOTT("responsable", ""),"El valor de filtrado sí es válido.");},
-						()->{assertNull(ge.totalOOTT("responsable", null),"El valor de filtrado sí es válido.");}
-						);
-			}
+		@Test
+		@DisplayName("Distribución filtrada por responsable")
+		void PN8_CP1() {
+			assertEquals(crearMapa(hoy,2),ge.distribucionIncidencias("responsable", "Ana García"),"Error en la distribución filtrada por responsable de incidencias.");
 		}
 		
-		@Nested
-		class Distribucion {
+		@Test
+		@DisplayName("Distribución filtrada por campo inválido")
+		void PN8_CP3() {
+			assertNull(ge.distribucionIncidencias("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
+		}
+		
+		@Test
+		@DisplayName("Distribución filtrada por valor inválido")
+		void PN8_CP3_CP4() {
 			
-			@Test
-			void distribucionTotal() {
-				assertEquals(crearMapa(hoy,3),ge.distribucionOOTT(null, null),"El resultado total no es igual.");
-			}
+			assertAll(
+					()->{assertNull(ge.distribucionIncidencias("responsable", ""),"Se permite filtrar por valores inválidos.");},
+					()->{assertNull(ge.distribucionIncidencias("responsable", null),"Se permite filtrar por nulos.");}
+					);
+		}
+	}
+	
+	
+	@Nested
+	@DisplayName("Distribución semanal procesos")
+	class PN9{
+		
+		@BeforeEach
+		void setUp() throws Exception {
+			inicializarProcesos();
+		}
+		
+		@Test
+		@DisplayName("Distribución total")
+		void PN9_CP2() {
+			assertEquals(crearMapa(hoy,3),ge.distribucionProcesos(null, null),"Error en la distribución total de procesos.");
+		}
+		
+		
+		@Test
+		@DisplayName("Distribución filtrada por responsable")
+		void PN9_CP1() {
+			assertEquals(crearMapa(hoy,2),ge.distribucionProcesos("responsable", "Ana García"),"Error en la distribución filtrada por responsable de procesos.");
+		}
+		
+		@Test
+		@DisplayName("Distribución filtrada por campo inválido")
+		void PN9_CP3() {
+			assertNull(ge.distribucionProcesos("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
+		}
+		
+		@Test
+		@DisplayName("Distribución filtrada por valor inválido")
+		void PN9_CP4_CP5() {
 			
+			assertAll(
+					()->{assertNull(ge.distribucionProcesos("responsable", ""),"Se permite filtrar por valores inválidos.");},
+					()->{assertNull(ge.distribucionProcesos("responsable", null),"Se permite filtrar por nulos.");}
+					);
+		}
+	}
+	
+	
+	@Nested
+	@DisplayName("Distribución semanal órdenes de trabajo")
+	class PN10 {
+		
+		@BeforeEach
+		void setUp() throws Exception {
+			inicializarOrdenesTrabajo();
+		}
+		
+		@Test
+		@DisplayName("Distribución total")
+		void PN10_CP2() {
+			assertEquals(crearMapa(hoy,3),ge.distribucionOOTT(null, null),"Error en la distribución total de órdenes de trabajo.");
+		}
+		
+		@Test
+		@DisplayName("Distribución filtrada por responsable")
+		void PN10_CP1() {
+			assertEquals(crearMapa(hoy,2),ge.distribucionOOTT("responsable", "Ana García"),"Error en la distribución filtrada por responsable de órdenes de trabajo.");
+		}
+		
+		@Test
+		@DisplayName("Distribución filtrada por campo inválido")
+		void PN10_CP3() {
+			assertNull(ge.distribucionOOTT("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
+		}
+		
+		@Test
+		@DisplayName("Distribución filtrada por valor inválido")
+		void PN10_CP4_CP5() {
 			
-			@Test
-			void distribucionFiltrado() {
-				assertEquals(crearMapa(hoy,2),ge.distribucionOOTT("responsable", "Ana García"),"El resultado filtrado no es igual.");
-			}
-			
-			@Test
-			void distribucionCampoFiltradoInvalido() {
-				assertNull(ge.distribucionOOTT("ASDFGH", "98765432C"),"El campo de filtrado sí es válido.");
-			}
-			
-			@Test
-			void distribucionValorFiltradoInvalido() {
-				
-				assertAll(
-						()->{assertNull(ge.distribucionOOTT("responsable", ""),"El valor de filtrado sí es válido.");},
-						()->{assertNull(ge.distribucionOOTT("responsable", null),"El valor de filtrado sí es válido.");}
-						);
-			}
+			assertAll(
+					()->{assertNull(ge.distribucionOOTT("responsable", ""),"Se permite filtrar por valores inválidos.");},
+					()->{assertNull(ge.distribucionOOTT("responsable", null),"Se permite filtrar por nulos.");}
+					);
 		}
 	}
 	
@@ -345,6 +351,52 @@ class TestAnalisisEstadisticos {
 		}	
 		
 		return referencia;
+	}
+	
+	/*INICIALIZACIONES CON LOS DATOS PARA PRUEBAS*/
+	
+	//Incidencias
+	private void inicializarIncidencias() {
+		// Inicializamos los objetos que vamos a emplear para las pruebas
+		Incidencia i1 = new Incidencia("I0001", "Ana García", "98765432M", "+01234567891", "Incidencia de ejemplo 1", "Vigo", "prueba");
+		Incidencia i2 = new Incidencia("I0002", "Ana García", "98765432M", "+01234567891", "Incidencia de ejemplo 2", "Vigo", "prueba");
+		Incidencia i3 = new Incidencia("I0003", "Pedro González", "12345678Z", "+01234567891", "Incidencia de ejemplo 3", "Vigo", "prueba");
+		
+		ArrayList<Incidencia> incidencias = new ArrayList<>();
+		incidencias.add(i1); incidencias.add(i2); incidencias.add(i3);
+		
+		// Preparamos el comportamiento del mock
+		Mockito.when(gi.getIncidencias(null, null)).thenReturn(incidencias);
+	}
+	
+	
+	//Procesos
+	private void inicializarProcesos() {
+		// Inicializamos los objetos que vamos a emplear para las pruebas
+		Proceso p1 = new Proceso("P1","Proceso 1",(float)50,30,"Bajo prueba","Ana García","Servicio 1",new ArrayList<Incidencia>());
+		Proceso p2 = new Proceso("P2","Proceso 2",(float)30,20,"Bajo prueba","Ana García","Servicio 1",new ArrayList<Incidencia>());
+		Proceso p3 = new Proceso("P3","Proceso 3",(float)20,10,"Bajo prueba","Pedro González","Servicio 1",new ArrayList<Incidencia>());
+		
+		ArrayList<Proceso> procesos = new ArrayList<>();
+		procesos.add(p1); procesos.add(p2); procesos.add(p3);
+		
+		// Preparamos el comportamiento del mock
+		Mockito.when(gp.getProcesos(null, null)).thenReturn(procesos);
+	}
+	
+	
+	//Órdenes de Trabajo
+	private void inicializarOrdenesTrabajo() {
+		// Inicializamos los objetos que vamos a emplear para las pruebas
+		OT o1 = new OT("OT1","Orden 1",null,null,(float)40,"Ana García",null,format.format(hoy),3,"Bajo prueba",null);
+		OT o2 = new OT("OT2","Orden 2",null,null,(float)40,"Ana García",null,format.format(hoy),3,"Bajo prueba",null);
+		OT o3 = new OT("OT3","Orden 3",null,null,(float)40,"Pedro Gonzálezs",null,format.format(hoy),3,"Bajo prueba",null);
+	
+		ArrayList<OT> ordenes = new ArrayList<>();
+		ordenes.add(o1); ordenes.add(o2); ordenes.add(o3);
+		
+		// Preparamos el comportamiento del mock
+		Mockito.when(got.getOOTT(null, null)).thenReturn(ordenes);
 	}
 
 }
