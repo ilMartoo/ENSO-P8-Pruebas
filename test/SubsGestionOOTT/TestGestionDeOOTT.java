@@ -2,8 +2,11 @@ package SubsGestionOOTT;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -35,13 +38,13 @@ class TestGestionDeOOTT {
 
 		Mockito.when(gestorI.crearIncidencia(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-				.thenReturn(new Incidencia("0", "93218185J", "José Taboada", "+34999999999",
+				.thenReturn(new Incidencia("0", "93218185J", "Josï¿½ Taboada", "+34999999999",
 						"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
-						"mobiliario público"));
+						"mobiliario pï¿½blico"));
 
 		Mockito.when(gestorP.crearProceso(Mockito.anyString(), Mockito.anyString(), Mockito.anyFloat(),
 				Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyList()))
-				.thenReturn(new Proceso("Arreglo banco", null, 0.01f, 1, "pendiente", "Ana García", "arreglo",
+				.thenReturn(new Proceso("Arreglo banco", null, 0.01f, 1, "pendiente", "Ana Garcï¿½a", "arreglo",
 						new ArrayList<>()));
 	}
 
@@ -101,7 +104,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -115,7 +118,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es válida"));
+					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es vï¿½lida"));
 		}
 
 		@Test
@@ -125,7 +128,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -141,7 +144,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es válida"));
+					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es vï¿½lida"));
 		}
 
 		@Test
@@ -151,7 +154,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -162,7 +165,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -171,7 +174,7 @@ class TestGestionDeOOTT {
 			descripcion = "Se realiza este trabajo";
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -182,7 +185,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, null, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -192,7 +195,7 @@ class TestGestionDeOOTT {
 			materiales.add("");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -203,7 +206,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -212,7 +215,7 @@ class TestGestionDeOOTT {
 			descripcion = "Se realiza este trabajo";
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -223,7 +226,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -233,7 +236,7 @@ class TestGestionDeOOTT {
 			materiales.add(null);
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -246,7 +249,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -256,7 +259,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(-0.01);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -267,7 +270,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -277,7 +280,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(null);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -290,7 +293,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -299,7 +302,7 @@ class TestGestionDeOOTT {
 			descripcion = "Se realiza este trabajo";
 			materiales.add("Martillo");
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -310,7 +313,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, null, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -320,7 +323,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -331,7 +334,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -341,7 +344,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = null;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -354,7 +357,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -375,7 +378,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -398,7 +401,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -408,7 +411,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			fechaInicio = "15/07/21";
 			duracion = 1;
 			estado = "pendiente";
@@ -418,7 +421,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -428,7 +431,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -439,7 +442,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -449,7 +452,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add(null);
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -462,7 +465,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -472,7 +475,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			fechaInicio = "15/07/21";
 			duracion = 1;
 			estado = "pendiente";
@@ -482,7 +485,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									null, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -492,7 +495,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = null;
 			duracion = 1;
@@ -505,7 +508,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -515,7 +518,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "31/02/30";
 			duracion = 1;
@@ -526,7 +529,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -536,7 +539,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/2021";
 			duracion = 1;
@@ -547,7 +550,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -557,7 +560,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 0;
@@ -568,7 +571,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -578,7 +581,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = null;
@@ -591,7 +594,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -601,7 +604,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -612,7 +615,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertNull(otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertNull(otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -622,7 +625,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -635,7 +638,7 @@ class TestGestionDeOOTT {
 											responsable, personal, fechaInicio, duracion, estado, proceso),
 									"No se ha tratado correctamente el valor nulo"),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 
 		@Test
@@ -645,7 +648,7 @@ class TestGestionDeOOTT {
 			materiales.add("Martillo");
 			presupuestos.add(1000.0);
 			coste = 0.01f;
-			responsable = "Desatranques Jaén";
+			responsable = "Desatranques Jaï¿½n";
 			personal.add("93218185J");
 			fechaInicio = "15/07/21";
 			duracion = 1;
@@ -657,7 +660,7 @@ class TestGestionDeOOTT {
 							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
 									personal, fechaInicio, duracion, estado, proceso),
 							"Se ha tardado mas de 1 segundo en obtener un resultado"),
-					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo inválida"));
+					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 	}
 
@@ -733,7 +736,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 1")
+		@DisplayName("Camino lï¿½gico 1")
 		void testPB3_CL1() {
 			id = null;
 			campo = "main";
@@ -748,8 +751,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -760,7 +763,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 2")
+		@DisplayName("Camino lï¿½gico 2")
 		void testPB3_CL2() {
 			id = "";
 			campo = "main";
@@ -775,8 +778,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -787,7 +790,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 3")
+		@DisplayName("Camino lï¿½gico 3")
 		void testPB3_CL3() {
 			id = "111111111122222222223";
 			campo = "main";
@@ -802,8 +805,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -814,7 +817,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 4")
+		@DisplayName("Camino lï¿½gico 4")
 		void testPB3_CL4() {
 			id = "-12";
 			campo = "main";
@@ -829,8 +832,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -841,7 +844,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 5")
+		@DisplayName("Camino lï¿½gico 5")
 		void testPB3_CL5() {
 			id = "0";
 			campo = "main";
@@ -856,8 +859,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			gestorOT.actualizarOT(id, campo, valor);
@@ -866,7 +869,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 6")
+		@DisplayName("Camino lï¿½gico 6")
 		void testPB3_CL6() {
 			id = "0";
 			campo = "main";
@@ -881,8 +884,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("10", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("10", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("10", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -893,7 +896,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 7")
+		@DisplayName("Camino lï¿½gico 7")
 		void testPB3_CL7() {
 			id = "0";
 			campo = "main";
@@ -908,12 +911,12 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("10", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("10", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("10", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
-			ordenes.add(new OT("11", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f, "Desatranques Jaén",
+			ordenes.add(new OT("11", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f, "Desatranques Jaï¿½n",
 					personal1, "15/07/21", 1, "pendiente", proceso1));
 
 			gestorOT.actualizarOT(id, campo, valor);
@@ -922,7 +925,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 8")
+		@DisplayName("Camino lï¿½gico 8")
 		void testPB3_CL8() {
 			id = "0";
 			campo = "main";
@@ -937,14 +940,14 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("10", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("10", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("10", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
 			for (int i = 0; i < 9; i++)
 				ordenes.add(new OT(String.valueOf(i + 11), "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-						"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1));
+						"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1));
 
 			gestorOT.actualizarOT(id, campo, valor);
 
@@ -952,7 +955,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 9")
+		@DisplayName("Camino lï¿½gico 9")
 		void testPB3_CL9() {
 			id = "0";
 			campo = null;
@@ -967,8 +970,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -979,7 +982,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 10")
+		@DisplayName("Camino lï¿½gico 10")
 		void testPB3_CL10() {
 			id = "0";
 			campo = "";
@@ -994,8 +997,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1006,7 +1009,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 11")
+		@DisplayName("Camino lï¿½gico 11")
 		void testPB3_CL11() {
 			id = "0";
 			campo = "main";
@@ -1021,8 +1024,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1033,7 +1036,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 12")
+		@DisplayName("Camino lï¿½gico 12")
 		void testPB3_CL12() {
 			id = "0";
 			campo = "main";
@@ -1048,8 +1051,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1060,7 +1063,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 13")
+		@DisplayName("Camino lï¿½gico 13")
 		void testPB3_CL13() {
 			id = "0";
 			campo = "descripcion";
@@ -1075,10 +1078,10 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", valor, materiales2, presupuestos2, 0.01f, "Desatranques Jaén", personal2, "15/07/21",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", valor, materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n", personal2, "15/07/21",
 					1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1091,7 +1094,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 14")
+		@DisplayName("Camino lï¿½gico 14")
 		void testPB3_CL14() {
 			id = "0";
 			campo = "descripcion";
@@ -1107,8 +1110,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1119,7 +1122,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 15")
+		@DisplayName("Camino lï¿½gico 15")
 		void testPB3_CL15() {
 			id = "0";
 			campo = "material";
@@ -1137,10 +1140,10 @@ class TestGestionDeOOTT {
 			ArrayList<String> materialesOriginal = (ArrayList<String>) materiales1.clone();
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materialesOriginal, presupuestos2, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1153,7 +1156,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 16")
+		@DisplayName("Camino lï¿½gico 16")
 		void testPB3_CL16() {
 			id = "0";
 			campo = "material";
@@ -1168,8 +1171,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1180,7 +1183,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 17")
+		@DisplayName("Camino lï¿½gico 17")
 		void testPB3_CL17() {
 			id = "0";
 			campo = "presupuestos";
@@ -1198,10 +1201,10 @@ class TestGestionDeOOTT {
 			ArrayList<Double> presupuestosOriginales = (ArrayList<Double>) presupuestos1.clone();
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestosOriginales, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1214,7 +1217,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 18")
+		@DisplayName("Camino lï¿½gico 18")
 		void testPB3_CL18() {
 			id = "0";
 			campo = "presupuestos";
@@ -1229,8 +1232,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1241,7 +1244,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 19")
+		@DisplayName("Camino lï¿½gico 19")
 		void testPB3_CL19() {
 			id = "0";
 			campo = "coste";
@@ -1256,11 +1259,11 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, Float.valueOf(valor),
-					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
+					"Desatranques Jaï¿½n", personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
 
@@ -1272,7 +1275,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 20")
+		@DisplayName("Camino lï¿½gico 20")
 		void testPB3_CL20() {
 			id = "0";
 			campo = "coste";
@@ -1287,8 +1290,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1299,11 +1302,11 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 21")
+		@DisplayName("Camino lï¿½gico 21")
 		void testPB3_CL21() {
 			id = "0";
 			campo = "responsable";
-			valor = "María Franco";
+			valor = "Marï¿½a Franco";
 
 			materiales1.add("Martillo");
 			presupuestos1.add(1000.0);
@@ -1314,9 +1317,9 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, valor, personal2,
 					"15/07/21", 1, "pendiente", proceso2);
 
@@ -1330,7 +1333,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 22")
+		@DisplayName("Camino lï¿½gico 22")
 		void testPB3_CL22() {
 			id = "0";
 			campo = "responsable";
@@ -1345,8 +1348,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1357,7 +1360,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 23")
+		@DisplayName("Camino lï¿½gico 23")
 		void testPB3_CL23() {
 			id = "0";
 			campo = "duracion";
@@ -1372,10 +1375,10 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", Integer.valueOf(valor), "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1388,7 +1391,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 24")
+		@DisplayName("Camino lï¿½gico 24")
 		void testPB3_CL24() {
 			id = "0";
 			campo = "duracion";
@@ -1403,8 +1406,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1415,7 +1418,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 25")
+		@DisplayName("Camino lï¿½gico 25")
 		void testPB3_CL25() {
 			id = "0";
 			campo = "estado";
@@ -1430,10 +1433,10 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "en proceso", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1446,7 +1449,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 26")
+		@DisplayName("Camino lï¿½gico 26")
 		void testPB3_CL26() {
 			id = "0";
 			campo = "estado";
@@ -1461,8 +1464,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1473,7 +1476,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 27")
+		@DisplayName("Camino lï¿½gico 27")
 		void testPB3_CL27() {
 			id = "0";
 			campo = "main";
@@ -1488,8 +1491,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1500,7 +1503,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 28")
+		@DisplayName("Camino lï¿½gico 28")
 		void testPB3_CL28() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1515,8 +1518,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1527,7 +1530,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 29")
+		@DisplayName("Camino lï¿½gico 29")
 		void testPB3_CL29() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1542,8 +1545,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1554,7 +1557,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 30")
+		@DisplayName("Camino lï¿½gico 30")
 		void testPB3_CL30() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1569,8 +1572,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1581,7 +1584,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 31")
+		@DisplayName("Camino lï¿½gico 31")
 		void testPB3_CL31() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1596,8 +1599,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1608,7 +1611,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 32")
+		@DisplayName("Camino lï¿½gico 32")
 		void testPB3_CL32() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1623,8 +1626,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1635,7 +1638,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 33")
+		@DisplayName("Camino lï¿½gico 33")
 		void testPB3_CL33() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1650,8 +1653,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1662,7 +1665,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 34")
+		@DisplayName("Camino lï¿½gico 34")
 		void testPB3_CL34() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1677,8 +1680,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1689,7 +1692,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 35")
+		@DisplayName("Camino lï¿½gico 35")
 		void testPB3_CL35() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1704,8 +1707,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1716,7 +1719,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 36")
+		@DisplayName("Camino lï¿½gico 36")
 		void testPB3_CL36() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1731,8 +1734,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1743,7 +1746,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 37")
+		@DisplayName("Camino lï¿½gico 37")
 		void testPB3_CL37() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1758,8 +1761,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1770,7 +1773,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 38")
+		@DisplayName("Camino lï¿½gico 38")
 		void testPB3_CL38() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1785,8 +1788,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1797,7 +1800,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 39")
+		@DisplayName("Camino lï¿½gico 39")
 		void testPB3_CL39() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1812,10 +1815,10 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, valor, 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1828,7 +1831,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 40")
+		@DisplayName("Camino lï¿½gico 40")
 		void testPB3_CL40() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1843,8 +1846,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1855,7 +1858,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 41")
+		@DisplayName("Camino lï¿½gico 41")
 		void testPB3_CL41() {
 			id = "0";
 			campo = "fechaInicio";
@@ -1870,10 +1873,10 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "en proceso", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, valor, 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1886,7 +1889,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 42")
+		@DisplayName("Camino lï¿½gico 42")
 		void testPB3_CL42() {
 			id = "0";
 			campo = "personal";
@@ -1901,8 +1904,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1913,7 +1916,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 43")
+		@DisplayName("Camino lï¿½gico 43")
 		void testPB3_CL43() {
 			id = "0";
 			campo = "personal";
@@ -1928,8 +1931,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1940,7 +1943,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 44")
+		@DisplayName("Camino lï¿½gico 44")
 		void testPB3_CL44() {
 			id = "0";
 			campo = "personal";
@@ -1955,8 +1958,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1967,7 +1970,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 45")
+		@DisplayName("Camino lï¿½gico 45")
 		void testPB3_CL45() {
 			id = "0";
 			campo = "personal";
@@ -1982,8 +1985,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -1994,7 +1997,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 46")
+		@DisplayName("Camino lï¿½gico 46")
 		void testPB3_CL46() {
 			id = "0";
 			campo = "personal";
@@ -2009,8 +2012,8 @@ class TestGestionDeOOTT {
 			personal2.add("93218185J");
 
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
-			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaén",
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
+			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f, "Desatranques Jaï¿½n",
 					personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
@@ -2021,7 +2024,7 @@ class TestGestionDeOOTT {
 		}
 
 		@Test
-		@DisplayName("Camino lógico 47")
+		@DisplayName("Camino lï¿½gico 47")
 		void testPB3_CL47() {
 			id = "0";
 			campo = "personal";
@@ -2039,11 +2042,11 @@ class TestGestionDeOOTT {
 			ArrayList<Double> personalOriginal = (ArrayList<Double>) personal1.clone();
 			
 			otModificable = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "pendiente", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "pendiente", proceso1);
 			OT otOriginal = new OT("0", "Se realiza este trabajo", materiales1, presupuestos1, 0.01f,
-					"Desatranques Jaén", personal1, "15/07/21", 1, "en proceso", proceso1);
+					"Desatranques Jaï¿½n", personal1, "15/07/21", 1, "en proceso", proceso1);
 			otResult = new OT("0", "Se realiza este trabajo", materiales2, presupuestos2, 0.01f,
-					"Desatranques Jaén", personal2, "15/07/21", 1, "pendiente", proceso2);
+					"Desatranques Jaï¿½n", personal2, "15/07/21", 1, "pendiente", proceso2);
 
 			ordenes.add(otModificable);
 
@@ -2054,4 +2057,272 @@ class TestGestionDeOOTT {
 							"Se ha actualizado la orden de trabajo de forma incorrecta"));
 		}
 	}
+	
+	
+	
+	
+	
+	/* PRUBA CAJA BLANCA NOEL: incluirPersonal */
+	
+	@Nested
+	@DisplayName("Prueba de caja blanca 4 - incluirPersonal")
+	class PB4{
+		
+		OT ot_prueba, ot_original, ot_esperada;
+		
+		ArrayList<OT> ordenes;
+		
+		@BeforeEach
+		void setUp() throws Exception {
+			
+			Date hoy = new Date();
+			
+			DateFormat format = new SimpleDateFormat("dd/MM/yy");
+			
+			gestorOT = new GestorDeOOTT();
+			
+			// La orden de trabajo que usaremos para las pruebas
+			
+			ArrayList<String> materiales = new ArrayList<>();
+			ArrayList<Double> presupuestos = new ArrayList<>();
+			ArrayList<String> personal = new ArrayList<>();
+			
+			ot_prueba = new OT("12345","Orden 1",materiales,presupuestos,0.01f,"Desatranques Jaen",personal,format.format(hoy),3,"pendiente",null);
+			
+			// Una copia de la orden de trabajo original, para usar como referencia
+			
+			materiales = new ArrayList<>();
+			presupuestos = new ArrayList<>();
+			personal = new ArrayList<>();
+			
+			ot_original = new OT("12345","Orden 1",materiales,presupuestos,0.01f,"Desatranques Jaen",personal,format.format(hoy),3,"pendiente",null);
+			
+			// Un modelo de la Ã³rden de trabajo esperada, para usar como referencia
+			
+			materiales = new ArrayList<>();
+			presupuestos = new ArrayList<>();
+			personal = new ArrayList<>();
+			
+			personal.add("98765432N");
+			
+			ot_esperada = new OT("12345","Orden 1",materiales,presupuestos,0.01f,"Desatranques Jaen",personal,format.format(hoy),3,"pendiente",null);
+			
+			
+			// Preparamos el conjunto de Ã³rdenes de trabajo sobre el que trabajar
+			
+			ordenes = gestorOT.getOOTT(null, null);
+			ordenes.clear();
+			ordenes.add(ot_prueba);
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 1")
+		void PB4_CL1(){
+			
+			gestorOT.incluirPersonal("12345","9876N");
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs cortos");		
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 2")
+		void PB4_CL2(){
+			
+			gestorOT.incluirPersonal("12345", null);
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs nulos");		
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 3")
+		void PB4_CL3(){
+			
+			gestorOT.incluirPersonal("", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"Permite IDs demasiado cortas");		
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 4")
+		void PB4_CL4(){
+			
+			gestorOT.incluirPersonal("1111111111111111111111", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"Permite IDs demasiado largas");		
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 5")
+		void PB4_CL5(){
+			
+			gestorOT.incluirPersonal("-1234", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"Permite IDs invÃ¡lidas");		
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 6")
+		void PB4_CL6(){
+			
+			gestorOT.incluirPersonal(null, "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"Permite IDs nulas");		
+		}
+		
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 7")
+		void PB4_CL7(){
+			
+			gestorOT.incluirPersonal("12345", "N98765432");
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs que empiezan por letra");		
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 8")
+		void PB4_CL8(){
+			
+			gestorOT.incluirPersonal("12345", "%ABCDEFG%");
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs invÃ¡lidos");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 9")
+		void PB4_CL9(){
+			
+			gestorOT.incluirPersonal("12345", "9876543N2");
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs invÃ¡lidos");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 10")
+		void PB4_CL10(){
+			
+			gestorOT.incluirPersonal("12345", "%ABCDEFGH");
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs invÃ¡lidos");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 11")
+		void PB4_CL11(){
+			
+			gestorOT.incluirPersonal("12345", "9876543NM");
+			
+			assertEquals(ot_original,ot_prueba,"Permite DNIs invÃ¡lidos");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 12")
+		void PB4_CL12(){
+			
+			crearOTs(ordenes,0); // se recorre 0 veces
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"El ID no se corresponde con el de una OT existente.");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 13")
+		void PB4_CL13(){
+			
+			crearOTs(ordenes,1); // se recorre 1 vez
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"El ID no se corresponde con el de una OT existente.");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 14")
+		void PB4_CL14(){
+			
+			crearOTs(ordenes,2); // se recorre 2 veces
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"El ID no se corresponde con el de una OT existente.");
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 15")
+		void PB4_CL15(){
+			
+			crearOTs(ordenes,10); // se recorre 10 veces
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertEquals(ot_original,ot_prueba,"El ID no se corresponde con el de una OT existente.");
+		}
+		
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 16")
+		void PB4_CL16(){
+			
+			// se recorre una vez
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertAll(
+					() -> assertNotEquals(ot_original, ot_prueba, "No se ha cambiado la orden de trabajo."),
+					() -> assertEquals(ot_esperada, ot_prueba,"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 17")
+		void PB4_CL17(){
+			
+			crearOTs(ordenes,1); // se recorre 2 veces
+			ordenes.add(ot_prueba);
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertAll(
+					() -> assertNotEquals(ot_original, ot_prueba, "No se ha cambiado la orden de trabajo."),
+					() -> assertEquals(ot_esperada, ot_prueba,"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+		
+		@Test
+		@DisplayName("Camino lÃ³gico 18")
+		void PB4_CL18(){
+			
+			crearOTs(ordenes,9); // se recorre 10 veces
+			ordenes.add(ot_prueba);
+			
+			gestorOT.incluirPersonal("12345", "98765432N");
+			
+			assertAll(
+					() -> assertNotEquals(ot_original, ot_prueba, "No se ha cambiado la orden de trabajo."),
+					() -> assertEquals(ot_esperada, ot_prueba,"Se ha actualizado la orden de trabajo de forma incorrecta"));
+		}
+	}
+	
+	
+	
+	private void crearOTs(ArrayList<OT> ots, int num){
+		
+		ots.clear();
+		
+		Date hoy = new Date();
+		DateFormat format = new SimpleDateFormat("dd/MM/yy");
+		
+		for(int i = 0; i < num; i++) {
+			
+			ArrayList<String> materiales = new ArrayList<>();
+			ArrayList<Double> presupuestos = new ArrayList<>();
+			ArrayList<String> personal = new ArrayList<>();
+			
+			ots.add(new OT(""+i,"Orden 1",materiales,presupuestos,0.01f,"Desatranques Jaen",personal,format.format(hoy),3,"pendiente",null));
+		}
+	}
+	
+	
+	
+	
+	
 }
