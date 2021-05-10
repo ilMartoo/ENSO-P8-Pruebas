@@ -62,7 +62,7 @@ class TestGestorDeIncidencias {
 		}
 
 		@Test
-		@DisplayName("PN1_CP1: : Introducción de valores válidos en todos los campos con una descripción válida")
+		@DisplayName("PN1_CP1: Introducción de valores válidos en todos los campos con una descripción válida")
 		void testPN1_CP1() {
 			// Arrange
 			DNI = "93218185J";
@@ -534,8 +534,9 @@ class TestGestorDeIncidencias {
 			assertNull(i, "Hemos recibido un null");
 		}
 
-		@Disabled("Prueba no disponible")
 		@Test
+		@Disabled("PB1-CL6. Prueba no disponible por error a la hora de realizar el camino")
+		@DisplayName("PB1-CL6. {“12345678z”, null, null, null, null, null}")
 		void testPB1_CL6() {
 			// Arrange
 			DNI = "12345678z";
@@ -556,7 +557,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL7. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL6. {“12345678Z”, null, null, null, null, null}")
+		@DisplayName("PB1-CL7. {“12345678Z”, null, null, null, null, null}")
 		void testPB1_CL7() {
 			// Arrange
 			DNI = "12345678Z";
@@ -577,7 +578,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL8. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL8. {“12345678Z”, “”, null, null, null, null}")
+		@DisplayName("PB1-CL8. {“12345678Z”, “”, null, null, null, null}")
 		void testPB1_CL8() {
 			// Arrange
 			DNI = "12345678Z";
@@ -598,7 +599,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL9. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL9. {“12345678Z”, “Jose Santiago Rodriguez Fernandez”, null, null, null, null}")
+		@DisplayName("PB1-CL9. {“12345678Z”, “Jose Santiago Rodriguez Fernandez”, null, null, null, null}")
 		void testPB1_CL9() {
 			// Arrange
 			DNI = "93218185J";
@@ -619,7 +620,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL10. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL10. {“12345678Z”, “Maria”, null, null, null, null}")
+		@DisplayName("PB1-CL10. {“12345678Z”, “Maria”, null, null, null, null}")
 		void testPB1_CL10() {
 			// Arrange
 			DNI = "93218185J";
@@ -640,7 +641,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL11. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL11. {“12345678Z”, “Maria”, “1”, null, null, null}")
+		@DisplayName("PB1-CL11. {“12345678Z”, “Maria”, “1”, null, null, null}")
 		void testPB1_CL11() {
 			// Arrange
 			DNI = "12345678Z";
@@ -661,7 +662,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL12. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL12. {“12345678Z”, “Maria”, “123456789123”, null, null, null}")
+		@DisplayName("PB1-CL12. {“12345678Z”, “Maria”, “123456789123”, null, null, null}")
 		void testPB1_CL12() {
 			// Arrange
 			DNI = "12345678Z";
@@ -682,7 +683,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL13. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL13. {“12345678Z”, “Maria”, “+A1234567890”, null, null, null} ")
+		@DisplayName("PB1-CL13. {“12345678Z”, “Maria”, “+A1234567890”, null, null, null} ")
 		void testPB1_CL13() {
 			// Arrange
 			DNI = "12345678Z";
@@ -703,7 +704,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL14. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL14. {“12345678Z”, “Maria”, “+1A234567890”, null, null, null}")
+		@DisplayName("PB1-CL14. {“12345678Z”, “Maria”, “+1A234567890”, null, null, null}")
 		void testPB1_CL14() {
 			// Arrange
 			DNI = "12345678Z";
@@ -724,7 +725,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL15. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL15. {“12345678Z”, “Maria”, “+1234567A890”, null, null, null}")
+		@DisplayName("PB1-CL15. {“12345678Z”, “Maria”, “+1234567A890”, null, null, null}")
 		void testPB1_CL15() {
 			// Arrange
 			DNI = "12345678Z";
@@ -745,7 +746,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL16. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL16. {“12345678Z”, “Maria”, “+12345678901”, null, null, null}")
+		@DisplayName("PB1-CL16. {“12345678Z”, “Maria”, “+12345678901”, null, null, null}")
 		void testPB1_CL16() {
 			// Arrange
 			DNI = "12345678Z";
@@ -766,7 +767,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL17. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL17. {“12345678Z”, “Maria”, “+12345678901”, “”, null, null}")
+		@DisplayName("PB1-CL17. {“12345678Z”, “Maria”, “+12345678901”, “”, null, null}")
 		void testPB1_CL17() {
 			// Arrange
 			DNI = "12345678Z";
@@ -787,12 +788,12 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL18. Prueba no disponible por error a la hora de realizar el camino")
-		/*@DisplayName("PB1-CL18. {“12345678Z”, “Maria”, “+12345678901”, “Lorem ipsum dolor sit amet, consectetur\r\n"
+		@DisplayName("PB1-CL18. {“12345678Z”, “Maria”, “+12345678901”, “Lorem ipsum dolor sit amet, consectetur\r\n"
 				+ "adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad\r\n"
 				+ "minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi\r\n"
 				+ "consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat\r\n"
 				+ "nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia\r\n"
-				+ "deserunt mollit anim id est laborum”, null, null}")*/
+				+ "deserunt mollit anim id est laborum”, null, null}")
 		void testPB1_CL18() {
 			// Arrange
 			DNI = "12345678Z";
@@ -818,7 +819,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL19. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL19. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, null, null}")
+		@DisplayName("PB1-CL19. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, null, null}")
 		void testPB1_CL19() {
 			// Arrange
 			DNI = "12345678Z";
@@ -839,7 +840,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL20. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL20. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “”, null}")
+		@DisplayName("PB1-CL20. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “”, null}")
 		void testPB1_CL20() {
 			// Arrange
 			DNI = "12345678Z";
@@ -860,9 +861,9 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL21. Prueba no disponible por error a la hora de realizar el camino")
-		/*@DisplayName("PB1-CL21. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Lorem ipsum dolor sit amet,\r\n"
+		@DisplayName("PB1-CL21. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Lorem ipsum dolor sit amet,\r\n"
 				+ "consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua”,\r\n"
-				+ "null}")*/
+				+ "null}")
 		void testPB1_CL21() {
 			// Arrange
 			DNI = "12345678Z";
@@ -884,7 +885,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL22. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL22. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, null}")
+		@DisplayName("PB1-CL22. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, null}")
 		void testPB1_CL22() {
 			// Arrange
 			DNI = "12345678Z";
@@ -905,7 +906,7 @@ class TestGestorDeIncidencias {
 
 		@Test
 		@Disabled("PB1-CL23. Prueba no disponible por error a la hora de realizar el camino")
-		//@DisplayName("PB1-CL23. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, “”}")
+		@DisplayName("PB1-CL23. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, “”}")
 		void testPB1_CL23() {
 			// Arrange
 			DNI = "12345678Z";
@@ -925,9 +926,9 @@ class TestGestorDeIncidencias {
 		}
 
 		@Test
-		@Disabled("PB1-CL4. Prueba no disponible por error a la hora de realizar el camino")
-		/*@DisplayName("PB1-CL24. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, “Lorem ipsum\r\n"
-				+ "dolor sit amet”}")*/
+		@Disabled("PB1-CL24. Prueba no disponible por error a la hora de realizar el camino")
+		@DisplayName("PB1-CL24. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, “Lorem ipsum\r\n"
+				+ "dolor sit amet”}")
 		void testPB1_CL24() {
 			// Arrange
 			DNI = "12345678Z";
@@ -947,6 +948,7 @@ class TestGestorDeIncidencias {
 		}
 
 		@Test
+		@Disabled("PB1-CL25. Prueba no disponible por error a la hora de realizar el camino")
 		@DisplayName("PB1-CL25. {“12345678Z”, “Maria”, “+12345678901”, “Banco roto”, “Campus Sur”, “Mobiliario”}")
 		void testPB1_CL25() {
 			// Arrange
@@ -969,6 +971,7 @@ class TestGestorDeIncidencias {
 		}
 
 		@Test
+		@Disabled("PB1-CL26. Prueba no disponible por error a la hora de realizar el camino")
 		@DisplayName("PB1-CL26. {“12345678Z”, “Maria”, “+12345678901”, null, “Campus Sur”, “Mobiliario”}")
 		void testPB1_CL26() {
 			// Arrange
