@@ -663,6 +663,76 @@ class TestGestionDeOOTT {
 					() -> assertSame(null, otResult, "Se ha creado una orden de trabajo invï¿½lida"));
 		}
 	}
+	
+	@Nested
+	@DisplayName("Prueba de caja negra 4 - consultarPreciosAcumulados")
+		class PN4{
+		String descripcion;
+		ArrayList<String> materiales;
+		ArrayList<Double> presupuestos;
+		Float coste;
+		String responsable;
+		ArrayList<String> personal;
+		String fechaInicio;
+		Integer duracion;
+		String estado;
+		Proceso proceso;
+
+		OT otResult;
+
+		@BeforeEach
+		void setUp() throws Exception {
+			gestorOT = new GestorDeOOTT();
+
+			materiales = new ArrayList<>();
+			presupuestos = new ArrayList<>();
+			personal = new ArrayList<>();
+
+			proceso = gestorP.crearProceso(Mockito.anyString(), Mockito.anyString(), Mockito.anyFloat(),
+					Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyList());
+			proceso.getIncidencias().add(gestorI.crearIncidencia(Mockito.anyString(), Mockito.anyString(),
+					Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()));
+		}
+
+		@AfterEach
+		void tearDown() throws Exception {
+			gestorOT = null;
+
+			materiales = null;
+			presupuestos = null;
+			personal = null;
+			proceso = null;
+
+			otResult = null;
+		}
+		
+		@Test
+		@DisplayName("PN4_CP2: Obtener total de precios acumulados filtrando por ningún campo.")
+		void PN4_CP2() {
+			assertEquals(0.0,gestorOT.consultarPreciosAcumulados(null, null),"Error en el recuento total de incidencias.");
+		}
+		
+		@Test
+		@DisplayName("PN4_CP1: Obtener total de precios acumulados filtrando por DNI del personal responsable.")
+		void PN4_CP1() {
+			assertEquals(0.0,gestorOT.consultarPreciosAcumulados("responsable", "Ana García"),"Error en el recuento filtrado por responsable de incidencias.");
+		}
+		
+		@Test
+		@DisplayName("PN4_CP3: Obtener total de precios acumulados filtrando por un campo no válido.")
+		void PN4_CP3() {
+			assertNull(gestorOT.consultarPreciosAcumulados("ASDFGH", "Ana García"),"Es un campo de filtrado vÃ¡lido.");
+		}
+		
+		@Test
+		@DisplayName("PN4_CP4 y PN4_CP5: Obtener total de precios acumulados filtrando por un valor no válido. Introducimos un valor no válido para el campo especificado. Obtener total de precios acumulados filtrando por un valor no válido. Introducimos un valor nulo. ")
+		void PN4_CP4_CP5() {
+			assertAll(
+					()->{assertNull(gestorOT.consultarPreciosAcumulados("responsable", ""),"Se permite filtrar por valores invÃ¡lidos.");},
+					()->{assertNull(gestorOT.consultarPreciosAcumulados("responsable", null),"Se permite filtrar por nulos.");}
+					);
+		}
+	}
 
 	@Nested
 	@DisplayName("Prueba de caja blanca 3 - actualizarOT")
