@@ -1,10 +1,14 @@
 package SubsGestionProcesos;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import ModeladoDeDatos.Incidencia;
+import ModeladoDeDatos.OT;
 import ModeladoDeDatos.Proceso;
 
 @DisplayName("Pruebas del Gestor de Procesos")
@@ -55,10 +60,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNotNull(p, "Error en la creación del proceso.");
 		}
@@ -81,10 +85,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNotNull(p, "Error en la creación del proceso.");
 		}
@@ -107,10 +110,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertSame(p, null, "Hemos recibido un null.");
 		}
@@ -133,10 +135,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -159,10 +160,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -185,10 +185,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -211,10 +210,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -237,10 +235,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -263,10 +260,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -289,10 +285,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -315,10 +310,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -341,10 +335,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -367,10 +360,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -393,10 +385,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -419,10 +410,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -442,10 +432,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -465,10 +454,9 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
 		}
@@ -489,12 +477,365 @@ public class TestGestorProcesos {
 
 			// Act
 			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio,
-						listaI);
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
 			});
-			
+
 			// Assert
 			assertNull(p, "Hemos recibido un null.");
+		}
+	}
+
+	@Nested
+	@DisplayName("Pruebas de Caja Blanca")
+	class PruebasCajaBlanca {
+
+		@Test
+		@DisplayName("PB2_CL1 - {null, null, null, null, null, null, null, null} ")
+		public void PB2_CL1() {
+			// Arrange
+			String nombre = null;
+			String descripcion = null;
+			Float coste = null;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertTrue(p == null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL2 - {\"Proceso en uso\", \"\", null, null, null, null, null, null} ")
+		public void PB2_CL2() {
+			// Arrange
+			String nombre = "Proceso en uso";
+			String descripcion = "";
+			Float coste = null;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL3 - {\"Proceso en uso\", \"\", null, null, null, null, null, null} ")
+		public void PB2_CL3() {
+			// Arrange
+			String nombre = "Proceso en uso";
+			String descripcion = "";
+			Float coste = null;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			ArrayList<Incidencia> listaAux = new ArrayList<>();
+			listaAux.add(new Incidencia("0", "José Taboada", "93218185J", "+34999999999",
+					"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
+					"mobilario público"));
+			gp.procesos.add(new Proceso("Proceso en uso", "Uno de los bancos del parque de Vista Alegre está roto",
+					0.01f, 1, "pendiente", "Ana García", "arreglo", listaAux, new ArrayList<>()));
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL4 - {\"Proceso en uso\", \"\", null, null, null, null, null, null} ")
+		public void PB2_CL4() {
+			// Arrange
+			String nombre = "Proceso en uso";
+			String descripcion = "";
+			Float coste = null;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			ArrayList<Incidencia> listaAux = new ArrayList<>();
+			listaAux.add(new Incidencia("0", "José Taboada", "93218185J", "+34999999999",
+					"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
+					"mobilario público"));
+			gp.procesos.add(new Proceso("Proceso no en uso", "Uno de los bancos del parque de Vista Alegre está roto",
+					0.01f, 1, "pendiente", "Ana García", "arreglo", listaAux, new ArrayList<>()));
+			gp.procesos.add(new Proceso("Proceso en uso", "Uno de los bancos del parque de Vista Alegre está roto",
+					0.01f, 1, "pendiente", "Ana García", "arreglo", listaAux, new ArrayList<>()));
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL5 - {\"Proceso en uso\", \"\", null, null, null, null, null, null} ")
+		public void PB2_CL5() {
+			// Arrange
+			String nombre = "Proceso en uso";
+			String descripcion = "";
+			Float coste = null;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			ArrayList<Incidencia> listaAux = new ArrayList<>();
+			listaAux.add(new Incidencia("0", "José Taboada", "93218185J", "+34999999999",
+					"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
+					"mobilario público"));
+			gp.procesos.add(new Proceso("Proceso no en uso", "Uno de los bancos del parque de Vista Alegre está roto",
+					0.01f, 1, "pendiente", "Ana García", "arreglo", listaAux, new ArrayList<>()));
+			for (int i = 0; i < 9; i++) {
+				gp.procesos
+						.add(new Proceso("Proceso en uso" + i, "Uno de los bancos del parque de Vista Alegre está roto",
+								0.01f, 1, "pendiente", "Ana García", "arreglo", listaAux, new ArrayList<>()));
+			}
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL6 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", null, null, null, null, null, null} ")
+		public void PB2_CL6() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = null;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL7 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, null, null, null, null, null} ")
+		public void PB2_CL7() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = null;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL8 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, 1, null, null, null, null} ")
+		public void PB2_CL8() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = null;
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL9 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, 1, \"pendiente\", null, null, null} ")
+		public void PB2_CL9() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = "pendiente";
+			String responsable = null;
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL10 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, 1, \"pendiente\", \"Ana García\", null, null} ")
+		public void PB2_CL10() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = "pendiente";
+			String responsable = "Ana García";
+			String servicio = null;
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL11 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, \"pendiente\", 1, \"Ana García\", \"arreglo\", null} ")
+		public void PB2_CL11() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = "pendiente";
+			String responsable = "Ana García";
+			String servicio = "arreglo";
+			List<Incidencia> listaI = null;
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL12 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, \"pendiente\", 1, \"Ana García\", \"arreglo\", listaI} ")
+		public void PB2_CL12() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = "pendiente";
+			String responsable = "Ana García";
+			String servicio = "arreglo";
+			List<Incidencia> listaI = new ArrayList<>();
+			listaI.add(new Incidencia("0", "José Taboada", "93218185J", "+34999999999",
+					"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
+					"mobilario público"));
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertTrue(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL13 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, \"pendiente\", 1, \"Ana García\", \"arreglo\", listaI} ")
+		public void PB2_CL13() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = "pendiente";
+			String responsable = "Ana García";
+			String servicio = "arreglo";
+			List<Incidencia> listaI = new ArrayList<>();
+			listaI.add(new Incidencia("0", "José Taboada", "93218185J", "+34999999999",
+					"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
+					"mobilario público"));
+			listaI.add(null);
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
+		}
+
+		@Test
+		@DisplayName("PB2_CL14 - {\"Arreglo banco\", \"Uno de los bancos del parque de Vista Alegre está roto\", 0.01, \"pendiente\", 1, \"Ana García\", \"arreglo\", listaI} ")
+		public void PB2_CL14() {
+			// Arrange
+			String nombre = "Arreglo banco";
+			String descripcion = "Uno de los bancos del parque de Vista Alegre está roto";
+			Float coste = 0.01f;
+			Integer estimado = 1;
+			String estado = "pendiente";
+			String responsable = "Ana García";
+			String servicio = "arreglo";
+			List<Incidencia> listaI = new ArrayList<>();
+			listaI.add(new Incidencia("0", "José Taboada", "93218185J", "+34999999999",
+					"Uno de los bancos del parque de Vista Alegre se ha roto", "Parque de Vista Alegre",
+					"mobilario público"));
+			for (int i = 1; i < 10; i++) {
+				listaI.add(null);
+			}
+
+			// Act
+			assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+				p = gp.crearProceso(nombre, descripcion, coste, estimado, estado, responsable, servicio, listaI);
+			});
+
+			// Assert
+			assertFalse(p != null, "Hemos recibido un null");
 		}
 	}
 }
