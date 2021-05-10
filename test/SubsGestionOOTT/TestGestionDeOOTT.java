@@ -713,9 +713,28 @@ class TestGestionDeOOTT {
 		}
 		
 		@Test
-		@DisplayName("PN4_CP1: Obtener total de precios acumulados filtrando por DNI del personal responsable.")
+		@DisplayName("PN4_CP1: Obtener total de precios acumulados filtrando por nombre del personal responsable.")
 		void PN4_CP1() {
-			assertEquals(0.0,gestorOT.consultarPreciosAcumulados("responsable", "Ana García"),"Error en el recuento filtrado por responsable de incidencias.");
+			descripcion = "Se realiza este trabajo";
+			materiales.add("Martillo");
+			presupuestos.add(1000.0);
+			coste = 0.01f;
+			responsable = "Ana García";
+			personal.add("93218185J");
+			fechaInicio = "15/07/21";
+			duracion = 1;
+			estado = "pendiente";
+			
+			OT ot = new OT("0", descripcion, materiales, presupuestos, coste, responsable, personal, fechaInicio,
+					duracion, estado, proceso);
+
+			assertAll(
+					() -> assertTimeout(Duration.ofSeconds(1),
+							() -> otResult = gestorOT.crearOT(descripcion, materiales, presupuestos, coste, responsable,
+									personal, fechaInicio, duracion, estado, proceso),
+							"Se ha tardado mas de 1 segundo en obtener un resultado"),
+					() -> assertEquals(ot, otResult, "La orden de trabajo creada no es válida"),
+					() -> assertEquals(0.01f,gestorOT.consultarPreciosAcumulados("responsable", "Ana García"),"Error en el recuento filtrado por responsable de incidencias."));
 		}
 		
 		@Test
