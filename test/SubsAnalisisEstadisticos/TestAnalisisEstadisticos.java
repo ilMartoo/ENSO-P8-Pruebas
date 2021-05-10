@@ -75,7 +75,7 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	@DisplayName("Total incidencias")
+	@DisplayName("PN5 - Total incidencias")
 	class PN5{
 		
 		@BeforeEach
@@ -84,25 +84,25 @@ class TestAnalisisEstadisticos {
 		}
 		
 		@Test
-		@DisplayName("Recuento total")
+		@DisplayName("CP2 - Recuento total")
 		void PN5_CP2() {
 			assertEquals(3,ge.totalIncidencias(null, null),"Error en el recuento total de incidencias.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por responsable")
+		@DisplayName("CP1 - Recuento filtrado por responsable")
 		void PN5_CP1() {
 			assertEquals(2,ge.totalIncidencias("responsable", "Ana García"),"Error en el recuento filtrado por responsable de incidencias.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por campo inválido")
+		@DisplayName("CP3 - Recuento filtrado por campo inválido")
 		void PN5_CP3() {
 			assertNull(ge.totalIncidencias("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por valor inválido")
+		@DisplayName("CP4 y CP5 -Recuento filtrado por valor inválido")
 		void PN5_CP4_CP5() {
 			assertAll(
 					()->{assertNull(ge.totalIncidencias("responsable", ""),"Se permite filtrar por valores inválidos.");},
@@ -114,7 +114,7 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	@DisplayName("Total procesos")
+	@DisplayName("PN6 - Total procesos")
 	class PN6{
 		
 		@BeforeEach
@@ -124,25 +124,25 @@ class TestAnalisisEstadisticos {
 
 		
 		@Test
-		@DisplayName("Recuento total")
+		@DisplayName("CP2 - Recuento total")
 		void PN6_CP2() {
 			assertEquals(3,ge.totalProcesos(null, null),"Error en el recuento total de procesos.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por responsable")
+		@DisplayName("CP1 - Recuento filtrado por responsable")
 		void PN6_CP1() {
 			assertEquals(2,ge.totalProcesos("responsable", "Ana García"),"Error en el recuento filtrado por responsable de procesos.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por campo inválido")
+		@DisplayName("CP3 - Recuento filtrado por campo inválido")
 		void PN6_CP3() {
 			assertNull(ge.totalProcesos("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por valor inválido")
+		@DisplayName("CP4 y CP5 -Recuento filtrado por valor inválido")
 		void PN6_CP4_CP5() {
 			assertAll(
 					()->{assertNull(ge.totalProcesos("responsable", ""),"Se permite filtrar por valores inválidos.");},
@@ -154,7 +154,7 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	@DisplayName("Total órdenes de trabajo")
+	@DisplayName("PN7 - Total órdenes de trabajo")
 	class PN7{
 		
 		@BeforeEach
@@ -163,25 +163,25 @@ class TestAnalisisEstadisticos {
 		}
 		
 		@Test
-		@DisplayName("Recuento total")
+		@DisplayName("CP2 - Recuento total")
 		void PN7_CP2() {
 			assertEquals(3,ge.totalOOTT(null, null),"Error en el recuento total de órdenes de trabajo.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por responsable")
+		@DisplayName("CP1 - Recuento filtrado por responsable")
 		void PN7_CP1() {
 			assertEquals(2,ge.totalOOTT("responsable", "Ana García"),"Error en el recuento filtrado por responsable de órdenes de trabajo.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por campo inválido")
+		@DisplayName("CP3 - Recuento filtrado por campo inválido")
 		void PN7_CP3() {
 			assertNull(ge.totalOOTT("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
 		}
 		
 		@Test
-		@DisplayName("Recuento filtrado por valor inválido")
+		@DisplayName("CP4 y CP5 -Recuento filtrado por valor inválido")
 		void PN7_CP4_CP5() {
 			assertAll(
 					()->{assertNull(ge.totalOOTT("responsable", ""),"Se permite filtrar por valores inválidos.");},
@@ -192,7 +192,7 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	@DisplayName("Distribución semanal incidencias")
+	@DisplayName("PN8 - Distribución semanal incidencias")
 	class PN8 {
 		
 		@BeforeEach
@@ -201,27 +201,27 @@ class TestAnalisisEstadisticos {
 		}
 		
 		@Test
-		@DisplayName("Distribución total")
+		@DisplayName("CP2 - Distribución total")
 		void PN8_CP2() {
 			assertEquals(crearMapa(hoy,3),ge.distribucionIncidencias(null, null),"Error en la distribución total de incidencias.");
 		}
 		
 		
 		@Test
-		@DisplayName("Distribución filtrada por responsable")
+		@DisplayName("CP1 - Distribución filtrada por responsable")
 		void PN8_CP1() {
 			assertEquals(crearMapa(hoy,2),ge.distribucionIncidencias("responsable", "Ana García"),"Error en la distribución filtrada por responsable de incidencias.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por campo inválido")
+		@DisplayName("CP3 - Distribución filtrada por campo inválido")
 		void PN8_CP3() {
 			assertNull(ge.distribucionIncidencias("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por valor inválido")
-		void PN8_CP3_CP4() {
+		@DisplayName("CP4 y CP5 -Distribución filtrada por valor inválido")
+		void PN8_CP4_CP5() {
 			
 			assertAll(
 					()->{assertNull(ge.distribucionIncidencias("responsable", ""),"Se permite filtrar por valores inválidos.");},
@@ -232,7 +232,7 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	@DisplayName("Distribución semanal procesos")
+	@DisplayName("PN9 - Distribución semanal procesos")
 	class PN9{
 		
 		@BeforeEach
@@ -241,26 +241,26 @@ class TestAnalisisEstadisticos {
 		}
 		
 		@Test
-		@DisplayName("Distribución total")
+		@DisplayName("CP2 - Distribución total")
 		void PN9_CP2() {
 			assertEquals(crearMapa(hoy,3),ge.distribucionProcesos(null, null),"Error en la distribución total de procesos.");
 		}
 		
 		
 		@Test
-		@DisplayName("Distribución filtrada por responsable")
+		@DisplayName("CP1 - Distribución filtrada por responsable")
 		void PN9_CP1() {
 			assertEquals(crearMapa(hoy,2),ge.distribucionProcesos("responsable", "Ana García"),"Error en la distribución filtrada por responsable de procesos.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por campo inválido")
+		@DisplayName("CP3 - Distribución filtrada por campo inválido")
 		void PN9_CP3() {
 			assertNull(ge.distribucionProcesos("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por valor inválido")
+		@DisplayName("CP4 y CP5 -Distribución filtrada por valor inválido")
 		void PN9_CP4_CP5() {
 			
 			assertAll(
@@ -272,7 +272,7 @@ class TestAnalisisEstadisticos {
 	
 	
 	@Nested
-	@DisplayName("Distribución semanal órdenes de trabajo")
+	@DisplayName("PN10 - Distribución semanal órdenes de trabajo")
 	class PN10 {
 		
 		@BeforeEach
@@ -281,25 +281,25 @@ class TestAnalisisEstadisticos {
 		}
 		
 		@Test
-		@DisplayName("Distribución total")
+		@DisplayName("CP2 - Distribución total")
 		void PN10_CP2() {
 			assertEquals(crearMapa(hoy,3),ge.distribucionOOTT(null, null),"Error en la distribución total de órdenes de trabajo.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por responsable")
+		@DisplayName("CP1 - Distribución filtrada por responsable")
 		void PN10_CP1() {
 			assertEquals(crearMapa(hoy,2),ge.distribucionOOTT("responsable", "Ana García"),"Error en la distribución filtrada por responsable de órdenes de trabajo.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por campo inválido")
+		@DisplayName("CP3 - Distribución filtrada por campo inválido")
 		void PN10_CP3() {
 			assertNull(ge.distribucionOOTT("ASDFGH", "Ana García"),"Es un campo de filtrado válido.");
 		}
 		
 		@Test
-		@DisplayName("Distribución filtrada por valor inválido")
+		@DisplayName("CP4 y CP5 - Distribución filtrada por valor inválido")
 		void PN10_CP4_CP5() {
 			
 			assertAll(
